@@ -1,7 +1,8 @@
 /**
  * @file src/lib/cards/ProfileCard.tsx
- * @desc /osu's image: the cover under an ink fade, the avatar and name, the global rank big in
- *       rose, then pp, accuracy, level, plays, play time and max combo, and the grade counts.
+ * @desc /osu's image: the cover under an ink fade, the avatar, name, flag, country rank and
+ *       supporter heart, the global rank big in ink (rose got lost on pink covers), then pp,
+ *       accuracy, level, plays, play time and max combo, and the grade counts.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
  * @modified Wed Oct 7, 2026
@@ -17,6 +18,7 @@ import {
   Pill,
   Signature,
   Stat,
+  SupporterHeart,
 } from "@/lib/cards/parts";
 import { hours, INK, int, percent, RULESET_LABELS } from "@/lib/cards/theme";
 
@@ -102,39 +104,28 @@ export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
                 style={{ display: "flex", fontWeight: 800 }}
               >{`#${int(player.countryRank)}`}</div>
             ) : null}
-            {player.supporter ? (
-              <div
-                style={{
-                  display: "flex",
-                  fontSize: 14,
-                  fontWeight: 800,
-                  letterSpacing: 1,
-                  textTransform: "uppercase",
-                  padding: "2px 8px",
-                  borderRadius: 4,
-                  background: INK.rose,
-                  color: INK.paper,
-                }}
-              >
-                supporter
-              </div>
-            ) : null}
+            {player.supporter ? <SupporterHeart size={22} /> : null}
           </div>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-          <div style={{ fontSize: 64, fontWeight: 800, lineHeight: 1, color: INK.rose }}>
-            {player.globalRank ? `#${int(player.globalRank)}` : "unranked"}
-          </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, paddingBottom: 6 }}>
           <div
             style={{
-              fontSize: 15,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              fontSize: 14,
               fontWeight: 800,
               letterSpacing: 1.5,
+              lineHeight: 1.15,
               textTransform: "uppercase",
               color: INK.muted,
             }}
           >
-            Global rank
+            <div>Global</div>
+            <div>rank</div>
+          </div>
+          <div style={{ display: "flex", fontSize: 52, fontWeight: 800, lineHeight: 1 }}>
+            {player.globalRank ? `#${int(player.globalRank)}` : "unranked"}
           </div>
         </div>
       </div>

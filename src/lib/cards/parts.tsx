@@ -2,8 +2,8 @@
  * @file src/lib/cards/parts.tsx
  * @desc Pieces the card images share: the paper frame with its ink panel border and screentone
  *       corner, the avatar, a flag, a stat (small label over a big number), mod pills, a label
- *       pill, star rating (an SVG star: Nunito has no ★), the harumin signature and the grade
- *       letter. Satori markup: every box with more than one
+ *       pill, star rating (an SVG star: Nunito has no ★), the supporter heart, the harumin
+ *       signature and the grade letter. Satori markup: every box with more than one
  *       child is a flex box, and every image has a size.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
@@ -280,4 +280,18 @@ export const Stars = ({ value, size, color }: { value: string; size: number; col
       />
     </svg>
   </div>
+);
+
+/**
+ * @function SupporterHeart
+ * @param props {{ size: number }} its height
+ * @returns {JSX.Element} osu!'s supporter heart, in osu!'s pink
+ */
+export const SupporterHeart = ({ size }: { size: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      fill="#ff66ab"
+      d="M12 21.4l-1.5-1.3C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.5 11.6L12 21.4z"
+    />
+  </svg>
 );
