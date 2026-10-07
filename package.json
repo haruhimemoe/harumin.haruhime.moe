@@ -19,7 +19,7 @@
     "prepare": "git rev-parse --git-dir >/dev/null 2>&1 && lefthook install || true"
   },
   "dependencies": {
-    "@haruhimemoe/harumin-config": "file:./vendor/haruhimemoe-harumin-config-0.1.0.tgz",
+    "@haruhimemoe/harumin-config": "^0.1.0",
     "@haruhimemoe/next-kit": "0.15.0",
     "@haruhimemoe/osu": "0.4.0",
     "@haruhimemoe/ui": "0.20.0",
