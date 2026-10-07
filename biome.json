@@ -19,5 +19,11 @@
       }
     }
   },
+  "overrides": [
+    {
+      "includes": ["src/lib/cards/**"],
+      "linter": { "rules": { "performance": { "noImgElement": "off" } } }
+    }
+  ],
   "assist": { "actions": { "source": { "organizeImports": "on" } } }
 }

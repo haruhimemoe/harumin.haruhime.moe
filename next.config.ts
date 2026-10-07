@@ -4,7 +4,8 @@
  *       mode, no X-Powered-By, unoptimized images (Discord's and osu!'s CDNs size their own),
  *       the legal pages' .md URLs rewritten to their Markdown routes (next-kit's
  *       contentRewrites), and security headers on every route: no framing, no MIME sniffing, a
- *       trimmed Referer, and images only from here, data: URIs, Discord's CDN and osu!.
+ *       trimmed Referer, and images only from here, data: URIs, Discord's CDN and osu!. The card
+ *       image route reads Nunito from @haruhimemoe/brand at runtime, so its files are traced in.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
  * @modified Wed Oct 7, 2026
@@ -33,6 +34,9 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: { unoptimized: true },
+  outputFileTracingIncludes: {
+    "/api/cards/[kind]": ["./node_modules/@haruhimemoe/brand/fonts/*.ttf"],
+  },
   async rewrites() {
     return contentRewrites();
   },
