@@ -1,0 +1,492 @@
+{
+  "version": "0.1.0",
+  "commands": [
+    {
+      "name": "osu",
+      "description": "A player's osu! profile",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "name",
+          "description": "osu! username, profile link or #id",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "discord",
+          "description": "A Discord member who linked their osu! account",
+          "type": "member",
+          "required": false
+        },
+        {
+          "name": "mode",
+          "description": "Ruleset (default: the server's, then the player's own)",
+          "type": "text",
+          "required": false,
+          "choices": ["osu!", "taiko", "catch", "mania"]
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "recent",
+      "description": "A player's most recent play",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "name",
+          "description": "osu! username, profile link or #id",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "discord",
+          "description": "A Discord member who linked their osu! account",
+          "type": "member",
+          "required": false
+        },
+        {
+          "name": "mode",
+          "description": "Ruleset (default: the server's, then the player's own)",
+          "type": "text",
+          "required": false,
+          "choices": ["osu!", "taiko", "catch", "mania"]
+        },
+        {
+          "name": "index",
+          "description": "1 is the latest, 2 the one before, ...",
+          "type": "whole number",
+          "required": false
+        },
+        {
+          "name": "passes-only",
+          "description": "Skip failed plays",
+          "type": "yes/no",
+          "required": false
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "top",
+      "description": "A player's top plays",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "name",
+          "description": "osu! username, profile link or #id",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "discord",
+          "description": "A Discord member who linked their osu! account",
+          "type": "member",
+          "required": false
+        },
+        {
+          "name": "mode",
+          "description": "Ruleset (default: the server's, then the player's own)",
+          "type": "text",
+          "required": false,
+          "choices": ["osu!", "taiko", "catch", "mania"]
+        },
+        {
+          "name": "sort",
+          "description": "Order (default pp)",
+          "type": "text",
+          "required": false,
+          "choices": ["pp", "newest", "accuracy", "combo", "score", "fewest misses"]
+        },
+        {
+          "name": "mods",
+          "description": "Only plays with these mods, e.g. HDDT, or NM",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "reverse",
+          "description": "Reverse the order",
+          "type": "yes/no",
+          "required": false
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "score",
+      "description": "A player's scores on a map",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "map",
+          "description": "Beatmap link or id (default: the last map in this channel)",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "name",
+          "description": "osu! username, profile link or #id",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "discord",
+          "description": "A Discord member who linked their osu! account",
+          "type": "member",
+          "required": false
+        },
+        {
+          "name": "mode",
+          "description": "Ruleset (default: the server's, then the player's own)",
+          "type": "text",
+          "required": false,
+          "choices": ["osu!", "taiko", "catch", "mania"]
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "map",
+      "description": "A beatmap's stats and pp",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "map",
+          "description": "Beatmap link or id (default: the last map in this channel)",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "mods",
+          "description": "Mods, e.g. HDDT",
+          "type": "text",
+          "required": false
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "leaderboard",
+      "description": "A map's global leaderboard",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "map",
+          "description": "Beatmap link or id (default: the last map in this channel)",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "mods",
+          "description": "Only scores with these mods, e.g. HD, or NM",
+          "type": "text",
+          "required": false
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "compare",
+      "description": "Two players head to head",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "player",
+          "description": "osu! username, profile link or #id",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "other",
+          "description": "Compare against this player instead of you",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "mode",
+          "description": "Ruleset (default: the server's, then the player's own)",
+          "type": "text",
+          "required": false,
+          "choices": ["osu!", "taiko", "catch", "mania"]
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "nochoke",
+      "description": "Top plays if every choke had been a full combo",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "name",
+          "description": "osu! username, profile link or #id",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "discord",
+          "description": "A Discord member who linked their osu! account",
+          "type": "member",
+          "required": false
+        },
+        {
+          "name": "mode",
+          "description": "Ruleset (default: the server's, then the player's own)",
+          "type": "text",
+          "required": false,
+          "choices": ["osu!", "taiko", "catch", "mania"]
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "simulate",
+      "description": "pp for a score you describe",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "map",
+          "description": "Beatmap link or id (default: the last map in this channel)",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "accuracy",
+          "description": "Percent, e.g. 98.5",
+          "type": "number",
+          "required": false
+        },
+        {
+          "name": "combo",
+          "description": "Max combo",
+          "type": "whole number",
+          "required": false
+        },
+        {
+          "name": "misses",
+          "description": "Misses",
+          "type": "whole number",
+          "required": false
+        },
+        {
+          "name": "mods",
+          "description": "Mods, e.g. HDDT",
+          "type": "text",
+          "required": false
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "server",
+      "description": "This server's linked players, ranked",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "stat",
+          "description": "Rank by (default pp)",
+          "type": "text",
+          "required": false,
+          "choices": ["pp", "rank", "accuracy", "playcount", "level"]
+        },
+        {
+          "name": "mode",
+          "description": "Ruleset (default: the server's, then the player's own)",
+          "type": "text",
+          "required": false,
+          "choices": ["osu!", "taiko", "catch", "mania"]
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "track",
+      "description": "Post a player's new top plays in a channel",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [],
+      "subcommands": [
+        {
+          "name": "add",
+          "description": "Start tracking a player",
+          "options": [
+            {
+              "name": "name",
+              "description": "osu! username, profile link or #id",
+              "type": "text",
+              "required": true
+            },
+            {
+              "name": "mode",
+              "description": "Ruleset (default osu!)",
+              "type": "text",
+              "required": false,
+              "choices": ["osu!", "taiko", "catch", "mania"]
+            },
+            {
+              "name": "channel",
+              "description": "Where to post (default: here)",
+              "type": "channel",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "remove",
+          "description": "Stop tracking a player",
+          "options": [
+            {
+              "name": "name",
+              "description": "osu! username, profile link or #id",
+              "type": "text",
+              "required": true
+            },
+            {
+              "name": "mode",
+              "description": "Ruleset (default osu!)",
+              "type": "text",
+              "required": false,
+              "choices": ["osu!", "taiko", "catch", "mania"]
+            }
+          ]
+        },
+        {
+          "name": "list",
+          "description": "Who this server tracks",
+          "options": []
+        }
+      ]
+    },
+    {
+      "name": "matchcost",
+      "description": "Match costs for a multiplayer match",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "match",
+          "description": "mp link or id (default: the last match linked here)",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "warmups",
+          "description": "Games to skip at the start",
+          "type": "whole number",
+          "required": false
+        },
+        {
+          "name": "formula",
+          "description": "Default Bathbot's",
+          "type": "text",
+          "required": false,
+          "choices": ["bathbot", "osuplus", "flashlight", "elitebotix"]
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "pack",
+      "description": "A pack from packs.haruhime.moe",
+      "category": "haruhime",
+      "categoryName": "haruhime tools",
+      "options": [
+        {
+          "name": "pack",
+          "description": "Pack link, code or pack key",
+          "type": "text",
+          "required": false
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "pool",
+      "description": "Mappools from pools.haruhime.moe",
+      "category": "haruhime",
+      "categoryName": "haruhime tools",
+      "options": [],
+      "subcommands": [
+        {
+          "name": "view",
+          "description": "A pool's maps",
+          "options": [
+            {
+              "name": "pool",
+              "description": "Pool link or id (default: the last one here)",
+              "type": "text",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "check",
+          "description": "Check every map against osu!'s content usage rules",
+          "options": [
+            {
+              "name": "pool",
+              "description": "Pool link, pack link or pack key",
+              "type": "text",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "parse",
+          "description": "Paste a pool and get it back as slots",
+          "options": []
+        }
+      ]
+    },
+    {
+      "name": "link",
+      "description": "Link your osu! account, or see which one is linked",
+      "category": "bot",
+      "categoryName": "harumin",
+      "options": [],
+      "subcommands": []
+    },
+    {
+      "name": "help",
+      "description": "What harumin can do",
+      "category": "bot",
+      "categoryName": "harumin",
+      "options": [
+        {
+          "name": "command",
+          "description": "One command in detail",
+          "type": "text",
+          "required": false
+        }
+      ],
+      "subcommands": []
+    },
+    {
+      "name": "info",
+      "description": "About harumin",
+      "category": "bot",
+      "categoryName": "harumin",
+      "options": [],
+      "subcommands": []
+    },
+    {
+      "name": "invite",
+      "description": "Add harumin to your server",
+      "category": "bot",
+      "categoryName": "harumin",
+      "options": [],
+      "subcommands": []
+    }
+  ]
+}
