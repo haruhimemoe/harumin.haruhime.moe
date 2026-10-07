@@ -5,14 +5,15 @@
  *       link one. Never cached.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Tue Oct 6, 2026
+ * @modified Wed Oct 7, 2026
  */
 
 import { guildIconUrl, type ManageableGuild } from "@haruhimemoe/harumin-config";
+import { ButtonLink, PageHeader } from "@haruhimemoe/ui";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Panel, PILL } from "@/components/Panel";
-import { inviteUrl, LINKS } from "@/constants/site";
+import { Panel } from "@/components/Panel";
+import { HUB_ACCOUNT_URL, inviteUrl } from "@/constants/site";
 import { discordIdOf, requireUser } from "@/lib/auth";
 import { BotUnavailableError, getBot } from "@/lib/bot";
 
@@ -28,12 +29,12 @@ const GuildIcon = ({ guild }: { guild: ManageableGuild }) => {
       alt=""
       width={48}
       height={48}
-      className="size-12 rounded-2xl border-2 border-ink"
+      className="size-12 rounded-full border border-c1"
     />
   ) : (
     <span
       aria-hidden="true"
-      className="grid size-12 place-items-center rounded-2xl border-2 border-ink bg-pink-soft font-black font-display text-ink"
+      className="screentone grid size-12 place-items-center rounded-full border border-c1 font-extrabold text-c1"
     >
       {guild.name.slice(0, 2)}
     </span>
@@ -56,37 +57,29 @@ export default async function DashboardPage() {
     }
   }
   return (
-    <div className="mx-auto max-w-4xl px-4 py-14">
-      <h1 className="font-black font-display text-5xl text-ink tracking-tight">Dashboard</h1>
-      <p className="mt-2 text-c3">Signed in as {user.username}. Pick a server to set up.</p>
-      <div className="mt-10">
+    <div className="flex flex-col gap-8">
+      <PageHeader
+        title="Dashboard"
+        lead={`Signed in as ${user.username}. Pick a server to set up.`}
+      />
+      <div>
         {!discordId ? (
           <Panel
-            n={1}
             title="Link Discord first"
-            action={
-              <a href={LINKS.account} className={PILL}>
-                Link on haruhime.moe
-              </a>
-            }
+            action={<ButtonLink href={HUB_ACCOUNT_URL}>Link on haruhime.moe</ButtonLink>}
           >
             Your haruhime account has no Discord linked, so harumin can't tell which servers are
             yours. Link it, then come back.
           </Panel>
         ) : guilds === null ? (
-          <Panel n={2} title="harumin isn't answering">
+          <Panel title="harumin isn't answering">
             The dashboard asks the bot which servers you manage, and it's offline right now. Try
             again in a minute.
           </Panel>
         ) : guilds.length === 0 ? (
           <Panel
-            n={3}
             title="No servers yet"
-            action={
-              <a href={inviteUrl()} className={PILL}>
-                Add harumin to a server
-              </a>
-            }
+            action={<ButtonLink href={inviteUrl()}>Add harumin to a server</ButtonLink>}
           >
             You'll see servers here where harumin is a member and you have Manage Server.
           </Panel>
@@ -96,10 +89,10 @@ export default async function DashboardPage() {
               <li key={guild.id}>
                 <Link
                   href={`/dashboard/${guild.id}`}
-                  className="ink-shadow flex items-center gap-4 rounded-2xl border-2 border-ink bg-white p-4 transition-transform hover:-translate-y-0.5"
+                  className="panel flex items-center gap-4 p-4 transition-colors hover:bg-b6"
                 >
                   <GuildIcon guild={guild} />
-                  <span className="min-w-0 flex-1 truncate font-bold text-ink text-lg">
+                  <span className="min-w-0 flex-1 truncate font-bold text-c1 text-lg">
                     {guild.name}
                   </span>
                   <span aria-hidden="true" className="text-c4">

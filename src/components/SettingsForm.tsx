@@ -4,7 +4,7 @@
  *       through the server action, with the answer read out in a live region.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Tue Oct 6, 2026
+ * @modified Wed Oct 7, 2026
  */
 
 "use client";
@@ -14,6 +14,7 @@ import {
   AUTO_EMBED_LABELS,
   type GuildSettings,
 } from "@haruhimemoe/harumin-config";
+import { Button } from "@haruhimemoe/ui";
 import { useActionState } from "react";
 import type { SaveResult } from "@/lib/dashboard";
 import { MODE_CHOICES } from "@/lib/dashboard";
@@ -34,17 +35,17 @@ export function SettingsForm({ settings, action }: SettingsFormProps) {
   return (
     <form action={submit} className="space-y-10">
       <fieldset>
-        <legend className="font-black font-display text-2xl text-ink">Link cards</legend>
+        <legend className="font-extrabold text-2xl text-c1">Link cards</legend>
         <p className="mt-1 text-c3 text-sm">
           When someone posts one of these links, harumin answers with a card. Commands work either
           way.
         </p>
-        <ul className="mt-5 divide-y divide-ink/10 rounded-2xl border border-ink/15 bg-white">
+        <ul className="panel mt-5 divide-y divide-c1/15">
           {AUTO_EMBED_KEYS.map((key) => (
             <li key={key}>
               <label className="flex cursor-pointer items-center gap-4 px-5 py-4">
                 <span className="flex-1">
-                  <span className="block font-bold text-ink">{AUTO_EMBED_LABELS[key].name}</span>
+                  <span className="block font-bold text-c1">{AUTO_EMBED_LABELS[key].name}</span>
                   <span className="block text-c3 text-sm">{AUTO_EMBED_LABELS[key].line}</span>
                 </span>
                 <input
@@ -55,7 +56,7 @@ export function SettingsForm({ settings, action }: SettingsFormProps) {
                 />
                 <span
                   aria-hidden="true"
-                  className="relative h-7 w-12 shrink-0 rounded-full border-2 border-ink bg-b3 transition-colors after:absolute after:top-0.5 after:left-0.5 after:size-5 after:rounded-full after:border-2 after:border-ink after:bg-white after:transition-transform peer-checked:bg-pink peer-checked:after:translate-x-5 peer-focus-visible:outline-2 peer-focus-visible:outline-h1 peer-focus-visible:outline-offset-2"
+                  className="relative h-6 w-11 shrink-0 rounded-full border-[1.5px] border-c1 bg-b4 transition-colors after:absolute after:top-0.5 after:left-0.5 after:size-4 after:rounded-full after:bg-c1 after:transition-transform peer-checked:bg-c1 peer-checked:after:translate-x-5 peer-checked:after:bg-b4 peer-focus-visible:outline-2 peer-focus-visible:outline-h1 peer-focus-visible:outline-offset-2"
                 />
               </label>
             </li>
@@ -64,7 +65,7 @@ export function SettingsForm({ settings, action }: SettingsFormProps) {
       </fieldset>
 
       <fieldset>
-        <legend className="font-black font-display text-2xl text-ink">Default ruleset</legend>
+        <legend className="font-extrabold text-2xl text-c1">Default ruleset</legend>
         <p className="mt-1 text-c3 text-sm">
           For commands where nobody picks a mode. "Player's own" uses each player's main mode.
         </p>
@@ -78,7 +79,7 @@ export function SettingsForm({ settings, action }: SettingsFormProps) {
                 defaultChecked={(settings.defaultMode ?? "auto") === choice.value}
                 className="peer sr-only"
               />
-              <span className="inline-block rounded-full border-2 border-ink bg-white px-4 py-1.5 font-bold text-ink text-sm transition-colors peer-checked:bg-ink peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-h1 peer-focus-visible:outline-offset-2">
+              <span className="panel inline-block px-4 py-1.5 font-bold text-c1 text-sm transition-colors peer-checked:bg-c1 peer-checked:text-b4 peer-focus-visible:outline-2 peer-focus-visible:outline-h1 peer-focus-visible:outline-offset-2">
                 {choice.label}
               </span>
             </label>
@@ -87,13 +88,9 @@ export function SettingsForm({ settings, action }: SettingsFormProps) {
       </fieldset>
 
       <div className="flex flex-wrap items-center gap-4">
-        <button
-          type="submit"
-          disabled={pending}
-          className="sticker rounded-full border-2 border-ink bg-pink px-6 py-2.5 font-black text-ink transition-transform hover:-translate-y-0.5 disabled:translate-y-0 disabled:opacity-60"
-        >
+        <Button type="submit" disabled={pending}>
           {pending ? "Saving…" : "Save"}
-        </button>
+        </Button>
         <p
           role="status"
           aria-live="polite"

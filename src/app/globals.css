@@ -1,96 +1,48 @@
 /*
  * @file src/app/globals.css
- * @desc Tailwind, the haruhime theme in its light scheme, and harumin's own character on top: a
- *       pink-tinted paper page, ink text, Bricolage Grotesque for display type, JetBrains Mono for
- *       commands, and the osu! pieces (playfield dots, hit circles with approach rings, slider
- *       paths). Pink #ff66ab is decoration and fills only; text in pink uses h1, which keeps 4.5:1.
+ * @desc Tailwind, the @haruhimemoe/ui theme in its light scheme at harumin's hue (350), and
+ *       harumin's manga touch: a white page with ink-black type, and three small utilities used
+ *       sparingly. `screentone` is a halftone dot fill, `speedlines` radiates thin ink lines from
+ *       the centre (both fade out with a mask so they never sit under text), and `panel` is a
+ *       thin ink frame like a manga panel border. No offset shadows, no thick outlines.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Tue Oct 6, 2026
+ * @modified Wed Oct 7, 2026
  */
 
 @import "tailwindcss";
 @import "@haruhimemoe/ui/theme.css";
 @import "@haruhimemoe/ui/theme-light.css";
 
-/* harumin is pink, pinned so a new library default can't recolor it. */
+/* harumin is rose (brand hue 350), pinned so a new library default can't recolor it. The page and
+   cards are paper white, so the ink and the one accent do the work. */
 :root {
-  --hue: 333;
+  --hue: 350;
+  --b4-l: 100%;
+  --b5-l: 100%;
+  --b6-l: 96%;
 }
 
-@theme {
-  --font-display: var(--font-bricolage), var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
-  --color-pink: #ff66ab;
-  --color-pink-soft: #ffe3f0;
-  --color-ink: hsl(333 30% 10%);
-  --color-discord: #5865f2;
-  --animate-approach: approach 1.8s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
-  --animate-hit: hit 1.8s ease-out infinite;
-  --animate-float: float 7s ease-in-out infinite;
-
-  @keyframes approach {
-    0% {
-      transform: scale(2.6);
-      opacity: 0;
-    }
-    15% {
-      opacity: 0.9;
-    }
-    80% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 0;
-    }
-  }
-
-  @keyframes hit {
-    0%,
-    78% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    90% {
-      transform: scale(1.18);
-      opacity: 0.4;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0) rotate(var(--tilt, 0deg));
-    }
-    50% {
-      transform: translateY(-10px) rotate(var(--tilt, 0deg));
-    }
-  }
+@utility screentone {
+  background-image: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--color-c1) 22%, transparent) 0.9px,
+    transparent 1.3px
+  );
+  background-size: 6px 6px;
 }
 
-@layer base {
-  body {
-    background-color: var(--color-b5);
-  }
+@utility speedlines {
+  background-image: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    color-mix(in srgb, var(--color-c1) 14%, transparent) 0deg 0.6deg,
+    transparent 0.6deg 7deg
+  );
+  mask-image: radial-gradient(closest-side, transparent 45%, black 70%, transparent 100%);
 }
 
-@utility playfield {
-  background-image: radial-gradient(circle at 1px 1px, hsl(333 40% 75% / 0.45) 1px, transparent 0);
-  background-size: 22px 22px;
-}
-
-@utility ink-shadow {
-  box-shadow:
-    0 1px 0 hsl(333 30% 10% / 0.06),
-    0 12px 32px -12px hsl(333 60% 30% / 0.22);
-}
-
-@utility sticker {
-  box-shadow: 4px 4px 0 0 var(--color-ink);
+@utility panel {
+  border: 1.5px solid var(--color-c1);
+  border-radius: 3px;
+  background-color: var(--color-b4);
 }

@@ -4,7 +4,7 @@
  *       the public pages need none of it). Errors name variables, never values.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Tue Oct 6, 2026
+ * @modified Wed Oct 7, 2026
  */
 
 import "server-only";
@@ -17,6 +17,11 @@ const schema = z.object({
   BETTER_AUTH_SECRET: z.string().min(32),
   /** The hub's origin. */
   HUB_URL: z.url().default("https://haruhime.moe"),
+  /** The hub's cookie domain (".haruhime.moe"), so sign-out clears its cookies. Unset locally. */
+  HUB_COOKIE_DOMAIN: z
+    .string()
+    .regex(/^\.[a-z0-9-]+(?:\.[a-z0-9-]+)*$/)
+    .optional(),
   /** The bot's service routes, e.g. http://harumin.internal:8787. */
   HARUMIN_SERVICE_URL: z.url(),
   /** Bearer for the bot's service routes; the same value as the bot's. */

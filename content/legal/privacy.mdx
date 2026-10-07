@@ -1,0 +1,42 @@
+This page says what the harumin bot and harumin.haruhime.moe keep, why, and for how long. harumin keeps as little as it can.
+
+## Messages
+
+harumin reads messages in channels it can see, only to spot osu!, packs, pools and bb links. It doesn't store message text. Each channel remembers the last map, match, pack and pool linked there for half an hour, in memory, so commands can use them. A restart forgets them.
+
+## Who was seen where
+
+When you send a message or run a command in a server, harumin notes your Discord id, the server's id and the date, at most once a day. That's how `/server` knows who's in a server and how the dashboard finds the servers you manage, without asking Discord for every member list. A note is deleted after 180 days without a new one.
+
+## Your linked account
+
+Linking happens on [haruhime.moe](https://www.haruhime.moe/account), the account every haruhime tool shares. It keeps your osu! account and, if you link it, your Discord account, and its own privacy page covers them. harumin reads which osu! account goes with your Discord id there and caches the answer for five minutes. Unlink on haruhime.moe and harumin forgets within five minutes.
+
+## Server settings and tracking
+
+- Each server's settings: which link cards are on, the default ruleset, and the Discord id of whoever saved them last.
+- Each `/track` entry: the osu! player, ruleset, channel, who added it and when, and the ids of that player's current top plays, so harumin can spot new ones.
+
+Server managers can change both. Removing harumin from a server leaves them in place; ask on the support server or email us to have them deleted.
+
+## osu! data
+
+harumin asks osu! for public data (profiles, scores, beatmaps, matches) when a command needs it and keeps short caches. To work out pp it downloads beatmap `.osu` files from osu! and keeps up to 500 of them. It never stores or shares beatmap archives.
+
+## This website
+
+The dashboard reads your haruhime.moe sign-in to know who you are. haruhime.moe sets the session cookie on `.haruhime.moe`, so this site can read it, along with `haruhime-signed-in`, which pages can read. harumin.haruhime.moe sets no cookies of its own and runs no analytics.
+
+## What we never do
+
+We don't sell or share any of this, and we don't keep what people say in your server.
+
+<Processors />
+
+## Your rights
+
+The [GDPR & CCPA page](/legal/your-privacy-rights) covers your rights over this data.
+
+<Changes />
+
+<LegalContact />

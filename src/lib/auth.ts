@@ -6,7 +6,7 @@
  *       their identity user row.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Tue Oct 6, 2026
+ * @modified Wed Oct 7, 2026
  */
 
 import "server-only";
@@ -18,7 +18,7 @@ import {
 import { hubSignInUrl, safeNextPath } from "@haruhimemoe/next-kit/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { HUB_SIGN_IN_PATH, SITE } from "@/constants/site";
+import { DEFAULT_AFTER_SIGN_IN, HUB_DIRECT_SIGN_IN_PATH, SITE } from "@/constants/site";
 import { getServerEnv } from "@/env";
 import { readDiscordId } from "@/lib/auth-identity";
 import { getIdentityDb } from "@/lib/db";
@@ -55,10 +55,10 @@ export const getCurrentUser = async (): Promise<SessionUser | null> => {
  * @returns {string} the hub's osu! sign-in, returning here
  */
 export const signInHref = (next: string): string =>
-  hubSignInUrl(new URL(safeNextPath(next, { fallback: "/dashboard" }), SITE.url).href, {
+  hubSignInUrl(new URL(safeNextPath(next, { fallback: DEFAULT_AFTER_SIGN_IN }), SITE.url).href, {
     hubUrl: getServerEnv().HUB_URL,
     hosts: [new URL(SITE.url).hostname],
-    signInPath: HUB_SIGN_IN_PATH,
+    signInPath: HUB_DIRECT_SIGN_IN_PATH,
   });
 
 /**

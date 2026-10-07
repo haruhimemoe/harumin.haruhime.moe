@@ -1,21 +1,23 @@
 /**
  * @file src/app/robots.ts
- * @desc robots.txt: everything public, the dashboard not.
+ * @desc robots.txt: everything public; the dashboard, sign-in and the API not.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Tue Oct 6, 2026
+ * @modified Wed Oct 7, 2026
  */
 
+import { robots } from "@haruhimemoe/next-kit/seo";
 import type { MetadataRoute } from "next";
-import { SITE } from "@/constants/site";
+import { SEO_SITE } from "@/constants/seo";
 
 /**
- * @function robots
- * @returns {MetadataRoute.Robots} the rules and the sitemap
+ * @function robotsTxt
+ * @returns {MetadataRoute.Robots} crawl rules, the AI crawler groups, the sitemap and the host
  */
-export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: { userAgent: "*", allow: "/", disallow: "/dashboard" },
-    sitemap: `${SITE.url}/sitemap.xml`,
-  };
+export default function robotsTxt(): MetadataRoute.Robots {
+  return robots(SEO_SITE, {
+    allow: ["/"],
+    disallow: ["/api/", "/dashboard", "/signin"],
+    aiBots: "allow",
+  });
 }

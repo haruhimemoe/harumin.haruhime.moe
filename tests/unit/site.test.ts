@@ -71,7 +71,9 @@ describe("dashboard rules", () => {
 describe("bot client", () => {
   it("calls with the bearer and parses answers", async () => {
     const fetch = vi.fn(async (url: URL | string, init?: RequestInit) => {
-      expect((init?.headers as Record<string, string> | undefined)?.Authorization).toBe(`Bearer ${TOKEN}`);
+      expect((init?.headers as Record<string, string> | undefined)?.Authorization).toBe(
+        `Bearer ${TOKEN}`,
+      );
       const path = new URL(url).pathname;
       if (path === "/guilds/manageable")
         return Response.json({ guilds: [{ id: GUILD, name: "x", icon: null }] });

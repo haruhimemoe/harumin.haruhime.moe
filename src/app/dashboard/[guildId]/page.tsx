@@ -5,7 +5,7 @@
  *       server, or it's a 404. Never cached.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Tue Oct 6, 2026
+ * @modified Wed Oct 7, 2026
  */
 
 import { guildIconUrl, MAX_TRACKED_PER_GUILD, snowflakeSchema } from "@haruhimemoe/harumin-config";
@@ -51,8 +51,8 @@ export default async function GuildPage({ params }: Props) {
   } catch (error) {
     if (!(error instanceof BotUnavailableError)) throw error;
     return (
-      <div className="mx-auto max-w-4xl px-4 py-14">
-        <Panel n={2} title="harumin isn't answering">
+      <div>
+        <Panel title="harumin isn't answering">
           Settings need the bot to confirm you manage this server, and it's offline right now. Try
           again in a minute.
         </Panel>
@@ -70,7 +70,7 @@ export default async function GuildPage({ params }: Props) {
   const channelName = new Map(channels.map((channel) => [channel.id, channel.name]));
   const icon = guildIconUrl(guild, 128);
   return (
-    <div className="mx-auto max-w-4xl px-4 py-14">
+    <div>
       <Link href="/dashboard" className="font-bold text-c3 text-sm hover:text-c1">
         ← All servers
       </Link>
@@ -82,10 +82,10 @@ export default async function GuildPage({ params }: Props) {
             alt=""
             width={64}
             height={64}
-            className="size-16 rounded-2xl border-2 border-ink"
+            className="size-16 rounded-full border border-c1"
           />
         ) : null}
-        <h1 className="min-w-0 truncate font-black font-display text-4xl text-ink tracking-tight">
+        <h1 className="min-w-0 truncate font-extrabold text-4xl text-c1 tracking-tight">
           {guild.name}
         </h1>
       </header>
@@ -98,7 +98,7 @@ export default async function GuildPage({ params }: Props) {
       </div>
 
       <section className="mt-14" aria-labelledby="tracked">
-        <h2 id="tracked" className="font-black font-display text-2xl text-ink">
+        <h2 id="tracked" className="font-extrabold text-2xl text-c1">
           Tracked players{" "}
           <span className="text-c4 text-lg">
             {tracks.length}/{MAX_TRACKED_PER_GUILD}
@@ -109,11 +109,9 @@ export default async function GuildPage({ params }: Props) {
           <code className="font-mono">/track</code> in Discord.
         </p>
         {tracks.length === 0 ? (
-          <p className="mt-5 rounded-2xl border border-ink/15 border-dashed bg-white p-5 text-c3">
-            Nobody tracked yet.
-          </p>
+          <p className="panel mt-5 border-dashed p-5 text-c3">Nobody tracked yet.</p>
         ) : (
-          <ul className="mt-5 divide-y divide-ink/10 rounded-2xl border border-ink/15 bg-white">
+          <ul className="panel mt-5 divide-y divide-c1/15">
             {tracks.map((track) => (
               <li
                 key={`${track.osuId}:${track.mode}`}
@@ -121,11 +119,11 @@ export default async function GuildPage({ params }: Props) {
               >
                 <a
                   href={`https://osu.ppy.sh/users/${track.osuId}`}
-                  className="font-bold text-h1 hover:text-c1"
+                  className="font-bold text-c1 underline-offset-2 hover:underline"
                 >
                   {track.username}
                 </a>
-                <span className="rounded-full bg-b6 px-2 py-0.5 font-mono text-c3 text-xs">
+                <span className="rounded-sm bg-b6 px-2 py-0.5 font-mono text-c3 text-xs">
                   {RULESET_NAMES[track.mode]}
                 </span>
                 <span className="ml-auto text-c3 text-sm">
