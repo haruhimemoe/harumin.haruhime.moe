@@ -146,11 +146,14 @@ export const Stat = ({
   value,
   big = false,
   accent = false,
+  color,
 }: {
   label: string;
   value: string;
   big?: boolean;
   accent?: boolean;
+  /** Overrides the value's color (a player's card accent). */
+  color?: string | undefined;
 }) => (
   <div style={{ display: "flex", flexDirection: "column" }}>
     <div
@@ -169,7 +172,7 @@ export const Stat = ({
         fontSize: big ? 40 : 26,
         fontWeight: 800,
         lineHeight: 1.1,
-        color: accent ? INK.rose : INK.ink,
+        color: color ?? (accent ? INK.rose : INK.ink),
       }}
     >
       {value}

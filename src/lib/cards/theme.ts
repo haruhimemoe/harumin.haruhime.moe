@@ -12,7 +12,7 @@
 import "server-only";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import type { Grade, Ruleset } from "@haruhimemoe/harumin-config";
+import type { CardAccent, Grade, Ruleset } from "@haruhimemoe/harumin-config";
 
 /** Ink on paper, with harumin's rose for the one accent. */
 export const INK = {
@@ -25,6 +25,26 @@ export const INK = {
   rose: "#ac394d",
   roseLight: "#ff6680",
 } as const;
+
+/** The accent each player can pick for their card. All read at 3:1 or better on paper. */
+export const ACCENT_COLORS: Readonly<Record<CardAccent, string>> = {
+  rose: INK.rose,
+  sky: "#1f6fb2",
+  mint: "#1b7f5a",
+  violet: "#6b3fb8",
+  amber: "#a35a00",
+  coral: "#c2412d",
+  teal: "#0f7680",
+  ink: INK.ink,
+};
+
+/**
+ * @function accentColor
+ * @param accent {CardAccent | undefined} the player's pick
+ * @returns {string} its color, rose when there's none
+ */
+export const accentColor = (accent: CardAccent | undefined): string =>
+  ACCENT_COLORS[accent ?? "rose"];
 
 /**
  * @function alpha

@@ -2,11 +2,12 @@
  * @file src/lib/cards/ProfileCard.tsx
  * @desc /osu's image: the cover under an ink fade, the avatar, name, flag, country rank and
  *       supporter heart, the global rank big in ink (rose got lost on pink covers), then pp,
- *       accuracy, level, plays, play time and max combo, and the grade counts. With
- *       `cover: "hole"` the cover box and the paper are left transparent for the bot's gif.
+ *       accuracy, level, plays, play time and max combo, the favorite line, and the grade
+ *       counts. The player's accent colors only what sits on paper (pp, the rule, the
+ *       favorite). With `cover: "hole"` the cover box and the paper are left transparent for the bot's gif.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Thu Oct 8, 2026
  */
 
 import {
@@ -25,7 +26,17 @@ import {
   Stat,
   SupporterHeart,
 } from "@/lib/cards/parts";
-import { alpha, hours, INK, int, percent, RULESET_LABELS } from "@/lib/cards/theme";
+import {
+  accentColor,
+  alpha,
+  hours,
+  INK,
+  int,
+  modsText,
+  percent,
+  pp,
+  RULESET_LABELS,
+} from "@/lib/cards/theme";
 
 /** The image size. */
 export const PROFILE_CARD_SIZE = {
@@ -51,6 +62,8 @@ const GRADE_ROWS: readonly { grade: Grade; key: keyof ProfileCardData["grades"] 
 export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
   const { player } = card;
   const hole = card.cover === "hole";
+  const accent = accentColor(card.theme?.accent);
+  const favorite = card.theme?.favorite ?? null;
   const joined = card.joinDate
     ? new Date(card.joinDate).toLocaleDateString("en-US", {
         month: "short",
@@ -170,16 +183,37 @@ export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
           justifyContent: "space-between",
           margin: "26px 32px 0",
           paddingTop: 20,
-          borderTop: `2px solid ${INK.ink}`,
+          borderTop: `2px solid ${accent}`,
         }}
       >
-        <Stat label="pp" value={int(Math.round(player.pp))} big />
+        <Stat label="pp" value={int(Math.round(player.pp))} big color={accent} />
         <Stat label="Accuracy" value={percent(card.accuracy)} big />
         <Stat label="Level" value={String(Math.floor(card.level))} big />
         <Stat label="Plays" value={int(card.playCount)} big />
         <Stat label="Play time" value={hours(card.playTime)} big />
         <Stat label="Max combo" value={`${int(card.maxCombo)}x`} big />
       </div>
+
+      {favorite ? (
+        <div
+          style={{
+            display: "flex",
+            margin: "14px 32px 0",
+            fontSize: 20,
+            fontWeight: 800,
+            color: accent,
+            ...oneLine,
+          }}
+        >
+          {[
+            `Favorite: ${favorite.title}`,
+            favorite.pp !== null ? pp(favorite.pp) : null,
+            modsText(favorite.mods),
+          ]
+            .filter(Boolean)
+            .join(" · ")}
+        </div>
+      ) : null}
 
       <div
         style={{

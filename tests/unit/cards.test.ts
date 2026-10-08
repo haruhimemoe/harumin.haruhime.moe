@@ -7,9 +7,10 @@
  * @modified Wed Oct 7, 2026
  */
 
+import { CARD_ACCENTS } from "@haruhimemoe/harumin-config";
 import { beforeAll, describe, expect, it } from "vitest";
 import { isCardKind, renderCard } from "@/lib/cards/render";
-import { ago } from "@/lib/cards/theme";
+import { accentColor, ago, INK } from "@/lib/cards/theme";
 
 const TOKEN = "c".repeat(40);
 
@@ -105,5 +106,30 @@ describe("ago", () => {
     expect(ago("2026-06-01T12:00:00Z", now)).toBe("4 months ago");
     expect(ago("2024-01-02T12:00:00Z", now)).toBe("Jan 2, 2024");
     expect(ago("2026-10-08T12:00:00Z", now)).toBe("just now");
+  });
+});
+
+/** WCAG contrast ratio of two #rrggbb colors. */
+const contrast = (a: string, b: string) => {
+  const lum = (hex: string) => {
+    const [r, g, bl] = [1, 3, 5].map((i) => {
+      const c = Number.parseInt(hex.slice(i, i + 2), 16) / 255;
+      return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * (r ?? 0) + 0.7152 * (g ?? 0) + 0.0722 * (bl ?? 0);
+  };
+  const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x);
+  return ((hi ?? 0) + 0.05) / ((lo ?? 0) + 0.05);
+};
+
+describe("accentColor", () => {
+  it("is rose by default and reads on paper for every accent", () => {
+    expect(accentColor(undefined)).toBe(INK.rose);
+    const colors = CARD_ACCENTS.map(accentColor);
+    expect(new Set(colors).size).toBe(CARD_ACCENTS.length);
+    for (const color of colors) {
+      expect(color).toMatch(/^#[0-9a-f]{6}$/);
+      expect(contrast(color, INK.paper)).toBeGreaterThanOrEqual(3);
+    }
   });
 });
