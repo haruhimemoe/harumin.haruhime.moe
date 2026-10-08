@@ -23,11 +23,10 @@ import {
   SCREENTONE,
 } from "@/lib/cards/theme";
 
-/** One line, cut with an ellipsis. */
+/** One line, cut at the edge (Nunito has no "…" glyph, so no ellipsis). */
 export const oneLine: CSSProperties = {
   whiteSpace: "nowrap",
   overflow: "hidden",
-  textOverflow: "ellipsis",
 };
 
 /**

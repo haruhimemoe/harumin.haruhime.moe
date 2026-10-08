@@ -154,3 +154,15 @@ export const ago = (iso: string, now = Date.now()): string => {
   }
   return "just now";
 };
+
+/** "3:25", or "1:02:03" past an hour. */
+export const duration = (seconds: number): string => {
+  const total = Math.round(seconds);
+  const parts = [Math.floor(total / 3600), Math.floor((total % 3600) / 60), total % 60];
+  const [, m, s] = parts.map((n) => String(n).padStart(2, "0"));
+  return parts[0] ? `${parts[0]}:${m}:${s}` : `${parts[1]}:${s}`;
+};
+
+/** "4.2", "10" (one decimal, none when whole). */
+export const stat = (value: number): string =>
+  new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 }).format(value);

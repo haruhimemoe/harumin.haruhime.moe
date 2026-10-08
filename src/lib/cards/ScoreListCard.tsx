@@ -2,7 +2,7 @@
  * @file src/lib/cards/ScoreListCard.tsx
  * @desc /top's image: the player and the list's title along the top, then up to five plays a
  *       page, each with its place, map cover strip, title and difficulty, grade, mods, accuracy,
- *       combo and pp, and the page number along the bottom.
+ *       combo and pp (and the full-combo pp when there is one), and the page number along the bottom.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
  * @modified Wed Oct 7, 2026
@@ -100,17 +100,22 @@ const Row = ({
       </div>
     </div>
     <GradeLetter grade={score.grade} size={44} />
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "flex-end",
-        width: 140,
-        fontSize: 32,
-        fontWeight: 800,
-        color: score.pp === null ? INK.muted : INK.rose,
-      }}
-    >
-      {score.pp === null ? "no pp" : `${score.ppApprox ? "≈" : ""}${pp(score.pp)}`}
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", width: 150 }}>
+      <div
+        style={{
+          display: "flex",
+          fontSize: 32,
+          fontWeight: 800,
+          color: score.pp === null ? INK.muted : INK.rose,
+        }}
+      >
+        {score.pp === null ? "no pp" : `${score.ppApprox ? "≈" : ""}${pp(score.pp)}`}
+      </div>
+      {score.fcPp !== null ? (
+        <div style={{ display: "flex", fontSize: 16, fontWeight: 800, color: INK.soft }}>
+          {`${pp(score.fcPp)} if FC`}
+        </div>
+      ) : null}
     </div>
   </div>
 );

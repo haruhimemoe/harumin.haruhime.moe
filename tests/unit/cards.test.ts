@@ -57,10 +57,12 @@ const post = (body: unknown, token: string | null = TOKEN) =>
   });
 
 describe("card routes", () => {
-  it("knows its three kinds and nothing else", () => {
-    expect(["profile", "score", "scores"].every(isCardKind)).toBe(true);
+  it("knows its kinds and nothing else", () => {
+    expect(
+      ["profile", "score", "scores", "map", "leaderboard", "simulate", "compare"].every(isCardKind),
+    ).toBe(true);
     expect(isCardKind("toString")).toBe(false);
-    expect(isCardKind("map")).toBe(false);
+    expect(isCardKind("pool")).toBe(false);
   });
 
   it("refuses a missing or wrong bearer", async () => {

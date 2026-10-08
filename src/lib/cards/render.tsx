@@ -11,18 +11,26 @@
 
 import "server-only";
 import {
+  compareCardSchema,
+  leaderboardCardSchema,
+  mapCardSchema,
   profileCardSchema,
   scoreCardSchema,
   scoreListCardSchema,
+  simulateCardSchema,
 } from "@haruhimemoe/harumin-config";
 import { parseJsonBody, refuseWithoutBearer } from "@haruhimemoe/next-kit/server";
 import { ImageResponse } from "next/og";
 import type { ReactElement } from "react";
 import type { z } from "zod";
 import { getServerEnv } from "@/env";
+import { COMPARE_CARD_SIZE, CompareCard } from "@/lib/cards/CompareCard";
+import { LeaderboardCard, leaderboardCardSize } from "@/lib/cards/LeaderboardCard";
+import { MAP_CARD_SIZE, MapCard } from "@/lib/cards/MapCard";
 import { PROFILE_CARD_SIZE, ProfileCard } from "@/lib/cards/ProfileCard";
 import { SCORE_CARD_SIZE, ScoreCard } from "@/lib/cards/ScoreCard";
 import { ScoreListCard, scoreListCardSize } from "@/lib/cards/ScoreListCard";
+import { SIMULATE_CARD_SIZE, SimulateCard } from "@/lib/cards/SimulateCard";
 import { cardFonts } from "@/lib/cards/theme";
 
 type Drawn = { element: ReactElement; size: { width: number; height: number } };
@@ -47,6 +55,19 @@ export const CARD_KINDS = {
   scores: kind(scoreListCardSchema, (card) => ({
     element: <ScoreListCard card={card} />,
     size: scoreListCardSize(card.rows.length),
+  })),
+  map: kind(mapCardSchema, (card) => ({ element: <MapCard card={card} />, size: MAP_CARD_SIZE })),
+  leaderboard: kind(leaderboardCardSchema, (card) => ({
+    element: <LeaderboardCard card={card} />,
+    size: leaderboardCardSize(card.rows.length),
+  })),
+  simulate: kind(simulateCardSchema, (card) => ({
+    element: <SimulateCard card={card} />,
+    size: SIMULATE_CARD_SIZE,
+  })),
+  compare: kind(compareCardSchema, (card) => ({
+    element: <CompareCard card={card} />,
+    size: COMPARE_CARD_SIZE,
   })),
 } as const;
 

@@ -9,6 +9,7 @@
  */
 
 import type { CardPlayer, ScoreCard as ScoreCardData } from "@haruhimemoe/harumin-config";
+import { MapHeader } from "@/lib/cards/MapHeader";
 import {
   Avatar,
   Flag,
@@ -16,22 +17,10 @@ import {
   GradeLetter,
   Mods,
   oneLine,
-  Pill,
   Signature,
-  Stars,
   Stat,
 } from "@/lib/cards/parts";
-import {
-  ago,
-  alpha,
-  INK,
-  int,
-  mapCoverUrl,
-  percent,
-  pp,
-  RULESET_LABELS,
-  stars,
-} from "@/lib/cards/theme";
+import { ago, INK, int, percent, pp, RULESET_LABELS } from "@/lib/cards/theme";
 
 /** The image size. */
 export const SCORE_CARD_SIZE = { width: 1000, height: 510 } as const;
@@ -67,87 +56,15 @@ export const ScoreCard = ({ card, now }: { card: ScoreCardData; now?: number }) 
   const fullCombo = score.mapMaxCombo !== null && score.combo >= score.mapMaxCombo;
   return (
     <Frame {...SCORE_CARD_SIZE}>
-      <div style={{ position: "relative", display: "flex", height: 190, background: INK.ink }}>
-        {map.beatmapsetId ? (
-          <img
-            src={mapCoverUrl(map.beatmapsetId, "cover@2x")}
-            width={974}
-            height={190}
-            alt=""
-            style={{ width: "100%", height: 190, objectFit: "cover", opacity: 0.85 }}
-          />
-        ) : null}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            backgroundImage: `linear-gradient(180deg, ${alpha(INK.ink, 0.1)} 0%, ${alpha(INK.ink, 0.8)} 100%)`,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: 16,
-            left: 18,
-            display: "flex",
-            gap: 8,
-          }}
-        >
-          {[card.heading, card.tries ? `try #${card.tries}` : null, RULESET_LABELS[card.ruleset]]
-            .filter((text): text is string => Boolean(text))
-            .map((text) => (
-              <Pill key={text} text={text} />
-            ))}
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            left: 26,
-            right: 26,
-            bottom: 18,
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "space-between",
-            gap: 20,
-            color: INK.paper,
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
-            <div
-              style={{
-                display: "flex",
-                fontSize: 36,
-                fontWeight: 800,
-                lineHeight: 1.15,
-                ...oneLine,
-              }}
-            >
-              {map.title}
-            </div>
-            <div style={{ display: "flex", fontSize: 20, ...oneLine }}>
-              {`${map.artist} · [${map.version}]`}
-            </div>
-          </div>
-          {map.stars !== null ? (
-            <div
-              style={{
-                display: "flex",
-                fontSize: 22,
-                fontWeight: 800,
-                padding: "4px 12px",
-                borderRadius: 4,
-                border: `2px solid ${INK.paper}`,
-              }}
-            >
-              <Stars value={stars(map.stars)} size={22} color={INK.paper} />
-            </div>
-          ) : null}
-        </div>
-      </div>
+      <MapHeader
+        map={map}
+        height={190}
+        pills={[
+          card.heading,
+          card.tries ? `try #${card.tries}` : null,
+          RULESET_LABELS[card.ruleset],
+        ]}
+      />
 
       <div style={{ display: "flex", alignItems: "center", gap: 30, padding: "22px 32px 0" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 130 }}>
