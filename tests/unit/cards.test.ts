@@ -59,10 +59,23 @@ const post = (body: unknown, token: string | null = TOKEN) =>
 describe("card routes", () => {
   it("knows its kinds and nothing else", () => {
     expect(
-      ["profile", "score", "scores", "map", "leaderboard", "simulate", "compare"].every(isCardKind),
+      [
+        "profile",
+        "score",
+        "scores",
+        "map",
+        "leaderboard",
+        "simulate",
+        "compare",
+        "matchcost",
+        "pool",
+        "server",
+        "tracks",
+        "bb",
+      ].every(isCardKind),
     ).toBe(true);
     expect(isCardKind("toString")).toBe(false);
-    expect(isCardKind("pool")).toBe(false);
+    expect(isCardKind("info")).toBe(false);
   });
 
   it("refuses a missing or wrong bearer", async () => {

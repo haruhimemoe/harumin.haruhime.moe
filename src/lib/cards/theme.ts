@@ -6,7 +6,7 @@
  *       covers the contract already checked), and number, grade and time text.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Thu Oct 8, 2026
  */
 
 import "server-only";
@@ -166,3 +166,26 @@ export const duration = (seconds: number): string => {
 /** "4.2", "10" (one decimal, none when whole). */
 export const stat = (value: number): string =>
   new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 }).format(value);
+
+/**
+ * @function listHeight
+ * @param parts {{ header: number; row: number; rows: number; max: number; footer: number }}
+ * @returns {number} a list card's height: frame, header, at least one row, footer
+ */
+export const listHeight = ({
+  header,
+  row,
+  rows,
+  max,
+  footer,
+}: {
+  header: number;
+  row: number;
+  rows: number;
+  max: number;
+  footer: number;
+}): number => 20 + 6 + header + Math.max(1, Math.min(rows, max)) * row + footer;
+
+/** The Discord CDN icon for a guild, always a PNG (the renderer draws one frame). */
+export const guildIconPng = (guildId: string, icon: string): string =>
+  `https://cdn.discordapp.com/icons/${guildId}/${icon}.png?size=128`;

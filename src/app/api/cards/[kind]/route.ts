@@ -1,10 +1,11 @@
 /**
  * @file src/app/api/cards/[kind]/route.ts
- * @desc POST /api/cards/{profile,score,scores,map,leaderboard,simulate,compare}: the bot's card images (harumin-config's
+ * @desc POST /api/cards/{profile,score,scores,map,leaderboard,simulate,compare,
+ *       matchcost,pool,server,tracks,bb}: the bot's card images (harumin-config's
  *       CARD_ROUTES). Bearer HARUMIN_SERVICE_TOKEN; answers a PNG.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Thu Oct 8, 2026
  */
 
 import { isCardKind, renderCard } from "@/lib/cards/render";

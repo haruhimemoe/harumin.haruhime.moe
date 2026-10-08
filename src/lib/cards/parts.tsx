@@ -7,7 +7,7 @@
  *       child is a flex box, and every image has a size.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Thu Oct 8, 2026
  */
 
 import type { Grade } from "@haruhimemoe/harumin-config";
@@ -297,4 +297,121 @@ export const SupporterHeart = ({ size }: { size: number }) => (
       d="M12 21.4l-1.5-1.3C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.5 11.6L12 21.4z"
     />
   </svg>
+);
+
+/**
+ * @function TitleBlock
+ * @param props {{ label: string; title: string; subtitle?: string | null; height: number; side?: ReactNode }}
+ * @returns {JSX.Element} a list card's top: an ink label, the title big, a muted line under it,
+ *          and anything on the right (an icon, a score), over an ink rule
+ */
+export const TitleBlock = ({
+  label,
+  title,
+  subtitle,
+  height,
+  side,
+}: {
+  label: string;
+  title: string;
+  subtitle?: string | null | undefined;
+  height: number;
+  side?: ReactNode;
+}) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: 22,
+      height,
+      padding: "0 28px",
+      borderBottom: `3px solid ${INK.ink}`,
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        flexGrow: 1,
+        flexBasis: 0,
+        minWidth: 0,
+        gap: 6,
+      }}
+    >
+      <div style={{ display: "flex" }}>
+        <div
+          style={{
+            display: "flex",
+            fontSize: 14,
+            fontWeight: 800,
+            letterSpacing: 1.5,
+            textTransform: "uppercase",
+            padding: "2px 10px",
+            borderRadius: 4,
+            background: INK.ink,
+            color: INK.paper,
+          }}
+        >
+          {label}
+        </div>
+      </div>
+      <div style={{ display: "flex", fontSize: 34, fontWeight: 800, lineHeight: 1.15, ...oneLine }}>
+        {title}
+      </div>
+      {subtitle ? (
+        <div style={{ display: "flex", fontSize: 18, color: INK.soft, ...oneLine }}>{subtitle}</div>
+      ) : null}
+    </div>
+    {side ?? null}
+  </div>
+);
+
+/**
+ * @function FootLine
+ * @param props {{ left?: string | null; right?: string }} muted words on the left, words before the signature
+ * @returns {JSX.Element} a list card's bottom line
+ */
+export const FootLine = ({
+  left,
+  right,
+}: {
+  left?: string | null | undefined;
+  right?: string | undefined;
+}) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: 20,
+      margin: "auto 28px 16px",
+      fontSize: 16,
+      color: INK.muted,
+      fontWeight: 800,
+    }}
+  >
+    <div style={{ display: "flex", ...oneLine }}>{left ?? ""}</div>
+    <Signature text={right} />
+  </div>
+);
+
+/**
+ * @function Empty
+ * @param props {{ text: string; height: number }} what to say
+ * @returns {JSX.Element} a muted line in the middle of a list with no rows
+ */
+export const Empty = ({ text, height }: { text: string; height: number }) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height,
+      padding: "0 28px",
+      fontSize: 22,
+      color: INK.muted,
+    }}
+  >
+    {text}
+  </div>
 );

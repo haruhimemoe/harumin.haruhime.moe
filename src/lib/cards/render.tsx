@@ -6,31 +6,41 @@
  *       the route never calls the osu! API and keeps nothing.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Thu Oct 8, 2026
  */
 
 import "server-only";
 import {
+  bbCardSchema,
   compareCardSchema,
   leaderboardCardSchema,
   mapCardSchema,
+  matchCostCardSchema,
+  poolCardSchema,
   profileCardSchema,
   scoreCardSchema,
   scoreListCardSchema,
+  serverCardSchema,
   simulateCardSchema,
+  tracksCardSchema,
 } from "@haruhimemoe/harumin-config";
 import { parseJsonBody, refuseWithoutBearer } from "@haruhimemoe/next-kit/server";
 import { ImageResponse } from "next/og";
 import type { ReactElement } from "react";
 import type { z } from "zod";
 import { getServerEnv } from "@/env";
+import { BB_CARD_SIZE, BbCard } from "@/lib/cards/BbCard";
 import { COMPARE_CARD_SIZE, CompareCard } from "@/lib/cards/CompareCard";
 import { LeaderboardCard, leaderboardCardSize } from "@/lib/cards/LeaderboardCard";
 import { MAP_CARD_SIZE, MapCard } from "@/lib/cards/MapCard";
+import { MatchCostCard, matchCostCardSize } from "@/lib/cards/MatchCostCard";
+import { PoolCard, poolCardSize } from "@/lib/cards/PoolCard";
 import { PROFILE_CARD_SIZE, ProfileCard } from "@/lib/cards/ProfileCard";
 import { SCORE_CARD_SIZE, ScoreCard } from "@/lib/cards/ScoreCard";
 import { ScoreListCard, scoreListCardSize } from "@/lib/cards/ScoreListCard";
+import { ServerCard, serverCardSize } from "@/lib/cards/ServerCard";
 import { SIMULATE_CARD_SIZE, SimulateCard } from "@/lib/cards/SimulateCard";
+import { TracksCard, tracksCardSize } from "@/lib/cards/TracksCard";
 import { cardFonts } from "@/lib/cards/theme";
 
 type Drawn = { element: ReactElement; size: { width: number; height: number } };
@@ -69,6 +79,23 @@ export const CARD_KINDS = {
     element: <CompareCard card={card} />,
     size: COMPARE_CARD_SIZE,
   })),
+  matchcost: kind(matchCostCardSchema, (card) => ({
+    element: <MatchCostCard card={card} />,
+    size: matchCostCardSize(card.rows.length),
+  })),
+  pool: kind(poolCardSchema, (card) => ({
+    element: <PoolCard card={card} />,
+    size: poolCardSize(card.slots.length),
+  })),
+  server: kind(serverCardSchema, (card) => ({
+    element: <ServerCard card={card} />,
+    size: serverCardSize(card.rows.length),
+  })),
+  tracks: kind(tracksCardSchema, (card) => ({
+    element: <TracksCard card={card} />,
+    size: tracksCardSize(card.rows.length),
+  })),
+  bb: kind(bbCardSchema, (card) => ({ element: <BbCard card={card} />, size: BB_CARD_SIZE })),
 } as const;
 
 /** One of CARD_KINDS' names. */
