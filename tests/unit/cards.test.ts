@@ -72,10 +72,13 @@ describe("card routes", () => {
         "server",
         "tracks",
         "bb",
+        "info",
+        "link",
+        "invite",
       ].every(isCardKind),
     ).toBe(true);
     expect(isCardKind("toString")).toBe(false);
-    expect(isCardKind("info")).toBe(false);
+    expect(isCardKind("help")).toBe(false);
   });
 
   it("refuses a missing or wrong bearer", async () => {

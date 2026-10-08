@@ -13,7 +13,10 @@ import "server-only";
 import {
   bbCardSchema,
   compareCardSchema,
+  infoCardSchema,
+  inviteCardSchema,
   leaderboardCardSchema,
+  linkCardSchema,
   mapCardSchema,
   matchCostCardSchema,
   poolCardSchema,
@@ -31,7 +34,10 @@ import type { z } from "zod";
 import { getServerEnv } from "@/env";
 import { BB_CARD_SIZE, BbCard } from "@/lib/cards/BbCard";
 import { COMPARE_CARD_SIZE, CompareCard } from "@/lib/cards/CompareCard";
+import { INFO_CARD_SIZE, InfoCard } from "@/lib/cards/InfoCard";
+import { INVITE_CARD_SIZE, InviteCard } from "@/lib/cards/InviteCard";
 import { LeaderboardCard, leaderboardCardSize } from "@/lib/cards/LeaderboardCard";
+import { LINK_CARD_SIZE, LinkCard } from "@/lib/cards/LinkCard";
 import { MAP_CARD_SIZE, MapCard } from "@/lib/cards/MapCard";
 import { MatchCostCard, matchCostCardSize } from "@/lib/cards/MatchCostCard";
 import { PoolCard, poolCardSize } from "@/lib/cards/PoolCard";
@@ -96,6 +102,18 @@ export const CARD_KINDS = {
     size: tracksCardSize(card.rows.length),
   })),
   bb: kind(bbCardSchema, (card) => ({ element: <BbCard card={card} />, size: BB_CARD_SIZE })),
+  info: kind(infoCardSchema, (card) => ({
+    element: <InfoCard card={card} />,
+    size: INFO_CARD_SIZE,
+  })),
+  link: kind(linkCardSchema, (card) => ({
+    element: <LinkCard card={card} />,
+    size: LINK_CARD_SIZE,
+  })),
+  invite: kind(inviteCardSchema, (card) => ({
+    element: <InviteCard card={card} />,
+    size: INVITE_CARD_SIZE,
+  })),
 } as const;
 
 /** One of CARD_KINDS' names. */
