@@ -13,6 +13,7 @@
 import type { Grade } from "@haruhimemoe/harumin-config";
 import type { CSSProperties, ReactNode } from "react";
 import {
+  alpha,
   avatarUrl,
   flagUrl,
   GRADE_LABELS,
@@ -31,16 +32,19 @@ export const oneLine: CSSProperties = {
 
 /**
  * @function Frame
- * @param props {{ width: number; height: number; children: ReactNode }} the image size
+ * @param props {{ width; height; transparent?; children }} the image size, and whether to leave
+ *        the paper out (the bot lays an animated cover and white under it)
  * @returns {JSX.Element} white paper inside a thin ink panel border, with a screentone corner
  */
 export const Frame = ({
   width,
   height,
+  transparent = false,
   children,
 }: {
   width: number;
   height: number;
+  transparent?: boolean;
   children: ReactNode;
 }) => (
   <div
@@ -48,7 +52,7 @@ export const Frame = ({
       width,
       height,
       display: "flex",
-      background: INK.paper,
+      background: transparent ? "transparent" : INK.paper,
       fontFamily: "Nunito",
       color: INK.ink,
       padding: 10,
@@ -64,7 +68,7 @@ export const Frame = ({
         border: `3px solid ${INK.ink}`,
         borderRadius: 6,
         overflow: "hidden",
-        background: INK.paper,
+        background: transparent ? "transparent" : INK.paper,
       }}
     >
       <div
@@ -87,7 +91,7 @@ export const Frame = ({
           width: 260,
           height: 180,
           display: "flex",
-          backgroundImage: `linear-gradient(135deg, ${INK.paper} 30%, ${INK.paper}00 100%)`,
+          backgroundImage: `linear-gradient(135deg, ${INK.paper} 30%, ${alpha(INK.paper, 0.0)} 100%)`,
         }}
       />
       {children}

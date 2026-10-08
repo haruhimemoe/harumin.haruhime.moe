@@ -26,9 +26,20 @@ export const INK = {
   roseLight: "#ff6680",
 } as const;
 
+/**
+ * @function alpha
+ * @param hex {string} a #rrggbb color
+ * @param amount {number} 0 to 1
+ * @returns {string} rgba(); the renderer ignores #rrggbbaa
+ */
+export const alpha = (hex: string, amount: number): string => {
+  const [r, g, b] = [1, 3, 5].map((i) => Number.parseInt(hex.slice(i, i + 2), 16));
+  return `rgba(${r}, ${g}, ${b}, ${amount})`;
+};
+
 /** Halftone dots, like manga screentone. */
 export const SCREENTONE = {
-  backgroundImage: `radial-gradient(circle at center, ${INK.ink}38 1.1px, transparent 1.6px)`,
+  backgroundImage: `radial-gradient(circle at center, ${alpha(INK.ink, 0.22)} 1.1px, transparent 1.6px)`,
   backgroundSize: "7px 7px",
 } as const;
 

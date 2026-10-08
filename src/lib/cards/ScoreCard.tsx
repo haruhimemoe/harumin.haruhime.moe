@@ -21,7 +21,17 @@ import {
   Stars,
   Stat,
 } from "@/lib/cards/parts";
-import { ago, INK, int, mapCoverUrl, percent, pp, RULESET_LABELS, stars } from "@/lib/cards/theme";
+import {
+  ago,
+  alpha,
+  INK,
+  int,
+  mapCoverUrl,
+  percent,
+  pp,
+  RULESET_LABELS,
+  stars,
+} from "@/lib/cards/theme";
 
 /** The image size. */
 export const SCORE_CARD_SIZE = { width: 1000, height: 510 } as const;
@@ -64,15 +74,18 @@ export const ScoreCard = ({ card, now }: { card: ScoreCardData; now?: number }) 
             width={974}
             height={190}
             alt=""
-            style={{ width: "100%", height: 190, objectFit: "cover", opacity: 0.7 }}
+            style={{ width: "100%", height: 190, objectFit: "cover", opacity: 0.85 }}
           />
         ) : null}
         <div
           style={{
             position: "absolute",
-            inset: 0,
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
             display: "flex",
-            backgroundImage: `linear-gradient(180deg, ${INK.ink}22 0%, ${INK.ink}ee 100%)`,
+            backgroundImage: `linear-gradient(180deg, ${alpha(INK.ink, 0.1)} 0%, ${alpha(INK.ink, 0.8)} 100%)`,
           }}
         />
         <div

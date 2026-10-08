@@ -2,13 +2,18 @@
  * @file src/lib/cards/ProfileCard.tsx
  * @desc /osu's image: the cover under an ink fade, the avatar, name, flag, country rank and
  *       supporter heart, the global rank big in ink (rose got lost on pink covers), then pp,
- *       accuracy, level, plays, play time and max combo, and the grade counts.
+ *       accuracy, level, plays, play time and max combo, and the grade counts. With
+ *       `cover: "hole"` the cover box and the paper are left transparent for the bot's gif.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
  * @modified Wed Oct 7, 2026
  */
 
-import type { Grade, ProfileCard as ProfileCardData } from "@haruhimemoe/harumin-config";
+import {
+  CARD_LAYOUT,
+  type Grade,
+  type ProfileCard as ProfileCardData,
+} from "@haruhimemoe/harumin-config";
 import {
   Avatar,
   Flag,
@@ -20,10 +25,15 @@ import {
   Stat,
   SupporterHeart,
 } from "@/lib/cards/parts";
-import { hours, INK, int, percent, RULESET_LABELS } from "@/lib/cards/theme";
+import { alpha, hours, INK, int, percent, RULESET_LABELS } from "@/lib/cards/theme";
 
 /** The image size. */
-export const PROFILE_CARD_SIZE = { width: 1000, height: 490 } as const;
+export const PROFILE_CARD_SIZE = {
+  width: CARD_LAYOUT.profile.width,
+  height: CARD_LAYOUT.profile.height,
+} as const;
+
+const COVER = CARD_LAYOUT.profile.cover;
 
 const GRADE_ROWS: readonly { grade: Grade; key: keyof ProfileCardData["grades"] }[] = [
   { grade: "XH", key: "ssh" },
@@ -40,6 +50,7 @@ const GRADE_ROWS: readonly { grade: Grade; key: keyof ProfileCardData["grades"] 
  */
 export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
   const { player } = card;
+  const hole = card.cover === "hole";
   const joined = card.joinDate
     ? new Date(card.joinDate).toLocaleDateString("en-US", {
         month: "short",
@@ -48,23 +59,46 @@ export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
       })
     : null;
   return (
-    <Frame {...PROFILE_CARD_SIZE}>
-      <div style={{ position: "relative", display: "flex", height: 170, background: INK.ink }}>
-        {player.coverUrl ? (
+    <Frame {...PROFILE_CARD_SIZE} transparent={hole}>
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          height: COVER.height,
+          background: hole ? "transparent" : INK.ink,
+        }}
+      >
+        {hole ? (
+          // The cover goes under this PNG later; dim it the way opacity 0.8 on ink does.
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              background: alpha(INK.ink, 0.2),
+            }}
+          />
+        ) : player.coverUrl ? (
           <img
             src={player.coverUrl}
-            width={974}
-            height={170}
+            width={COVER.width}
+            height={COVER.height}
             alt=""
-            style={{ width: "100%", height: 170, objectFit: "cover", opacity: 0.6 }}
+            style={{ width: "100%", height: COVER.height, objectFit: "cover", opacity: 0.8 }}
           />
         ) : null}
         <div
           style={{
             position: "absolute",
-            inset: 0,
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
             display: "flex",
-            backgroundImage: `linear-gradient(180deg, ${INK.ink}33 0%, ${INK.ink}aa 100%)`,
+            backgroundImage: `linear-gradient(180deg, ${alpha(INK.ink, 0)} 40%, ${alpha(INK.ink, 0.45)} 100%)`,
           }}
         />
         <div style={{ position: "absolute", top: 16, left: 18, display: "flex" }}>
