@@ -2,10 +2,11 @@
  * @file src/lib/cards/ScoreCard.tsx
  * @desc /recent's image: the map's cover with its title, the grade letter big, the pp big in
  *       rose (with the full-combo pp when it wasn't one), accuracy, combo and score, the
- *       judgements on their own row (mania has six), mods, and who played it and when along the bottom.
+ *       judgements on their own row (mania has six), mods, the 24 h session ("23 today",
+ *       "best of 23"), and who played it and when along the bottom.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Thu Oct 8, 2026
  */
 
 import type { CardPlayer, ScoreCard as ScoreCardData } from "@haruhimemoe/harumin-config";
@@ -62,6 +63,7 @@ export const ScoreCard = ({ card, now }: { card: ScoreCardData; now?: number }) 
         pills={[
           card.heading,
           card.tries ? `try #${card.tries}` : null,
+          card.session && card.session.today > 1 ? `${card.session.today} today` : null,
           RULESET_LABELS[card.ruleset],
         ]}
       />
@@ -128,6 +130,11 @@ export const ScoreCard = ({ card, now }: { card: ScoreCardData; now?: number }) 
               </div>
             ))}
           </div>
+          {card.session?.note ? (
+            <div style={{ display: "flex", fontSize: 16, fontWeight: 800, color: INK.rose }}>
+              {card.session.note}
+            </div>
+          ) : null}
         </div>
       </div>
 
