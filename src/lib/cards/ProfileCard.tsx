@@ -23,7 +23,7 @@ import {
 import { hours, INK, int, percent, RULESET_LABELS } from "@/lib/cards/theme";
 
 /** The image size. */
-export const PROFILE_CARD_SIZE = { width: 1000, height: 470 } as const;
+export const PROFILE_CARD_SIZE = { width: 1000, height: 490 } as const;
 
 const GRADE_ROWS: readonly { grade: Grade; key: keyof ProfileCardData["grades"] }[] = [
   { grade: "XH", key: "ssh" },
@@ -56,7 +56,7 @@ export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
             width={974}
             height={170}
             alt=""
-            style={{ width: "100%", height: 170, objectFit: "cover", opacity: 0.75 }}
+            style={{ width: "100%", height: 170, objectFit: "cover", opacity: 0.6 }}
           />
         ) : null}
         <div
@@ -64,7 +64,7 @@ export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
             position: "absolute",
             inset: 0,
             display: "flex",
-            backgroundImage: `linear-gradient(180deg, ${INK.ink}00 30%, ${INK.ink}cc 100%)`,
+            backgroundImage: `linear-gradient(180deg, ${INK.ink}33 0%, ${INK.ink}aa 100%)`,
           }}
         />
         <div style={{ position: "absolute", top: 16, left: 18, display: "flex" }}>
@@ -72,7 +72,7 @@ export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
         </div>
       </div>
 
-      <div style={{ display: "flex", alignItems: "flex-end", padding: "0 32px", marginTop: -64 }}>
+      <div style={{ display: "flex", alignItems: "flex-start", padding: "0 32px", marginTop: -64 }}>
         <Avatar osuId={player.osuId} size={132} />
         <div
           style={{
@@ -81,11 +81,11 @@ export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
             flexGrow: 1,
             minWidth: 0,
             marginLeft: 22,
-            paddingBottom: 4,
+            marginTop: 72,
           }}
         >
           <div
-            style={{ display: "flex", fontSize: 46, fontWeight: 800, lineHeight: 1.1, ...oneLine }}
+            style={{ display: "flex", fontSize: 42, fontWeight: 800, lineHeight: 1.1, ...oneLine }}
           >
             {player.username}
           </div>
@@ -107,7 +107,7 @@ export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
             {player.supporter ? <SupporterHeart size={22} /> : null}
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 12, paddingBottom: 6 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 80 }}>
           <div
             style={{
               display: "flex",
