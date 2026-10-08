@@ -86,6 +86,7 @@ export const NAV_LINKS: readonly { href: string; label: string }[] = [
 /** The header account menu's links, above Sign out. */
 export const ACCOUNT_MENU_ITEMS: readonly { href: string; label: string }[] = [
   { href: "/dashboard", label: "Your servers" },
+  { href: "/card", label: "Your card" },
   { href: HUB_ACCOUNT_URL, label: "Link Discord" },
 ];
 

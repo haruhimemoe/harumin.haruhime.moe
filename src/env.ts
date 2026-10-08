@@ -4,7 +4,7 @@
  *       the public pages need none of it). Errors name variables, never values.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Thu Oct 8, 2026
  */
 
 import "server-only";
@@ -26,6 +26,8 @@ const schema = z.object({
   HARUMIN_SERVICE_URL: z.url(),
   /** Bearer for the bot's service routes; the same value as the bot's. */
   HARUMIN_SERVICE_TOKEN: z.string().min(32),
+  /** Bearer for the hub's account fan-out (export, delete). Unset: those routes answer 503. */
+  ACCOUNT_FANOUT_SECRET: z.string().min(32).optional(),
 });
 
 /** The parsed variables. */

@@ -32,7 +32,7 @@ export class BotUnavailableError extends Error {
 /**
  * @function createBotClient
  * @param options {BotClientOptions} the bot's service URL, token and fetch (tests)
- * @returns {{ manageableGuilds; guildChannels; revalidate }} the three calls
+ * @returns {{ manageableGuilds; guildChannels; revalidate; revalidateUser }} the four calls
  */
 export const createBotClient = ({ baseUrl, token, fetch: fetchImpl = fetch }: BotClientOptions) => {
   const call = async (path: string, init: RequestInit = {}): Promise<Response> => {
@@ -75,6 +75,13 @@ export const createBotClient = ({ baseUrl, token, fetch: fetchImpl = fetch }: Bo
       await call(SERVICE_ROUTES.revalidate, {
         method: "POST",
         body: JSON.stringify({ guildId }),
+        headers: { "Content-Type": "application/json" },
+      });
+    },
+    async revalidateUser(osuId: number): Promise<void> {
+      await call(SERVICE_ROUTES.revalidateUser, {
+        method: "POST",
+        body: JSON.stringify({ osuId }),
         headers: { "Content-Type": "application/json" },
       });
     },
