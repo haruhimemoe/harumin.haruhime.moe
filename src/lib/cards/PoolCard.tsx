@@ -37,6 +37,9 @@ const LABELS: Readonly<Record<PoolCardData["source"], string>> = {
   pool: "pools.haruhime.moe",
   check: "Content rules",
   parsed: "Pasted pool",
+  practice: "Practice",
+  fromtop: "Draft from top plays",
+  me: "Your scores",
 };
 
 /** How each verdict reads, and whether it's the rose (not allowed) or muted. */
