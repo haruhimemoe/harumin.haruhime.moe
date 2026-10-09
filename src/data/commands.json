@@ -446,6 +446,38 @@
           "name": "parse",
           "description": "Paste a pool and get it back as slots",
           "options": []
+        },
+        {
+          "name": "fromtop",
+          "description": "Draft a tournament pool from your top plays",
+          "options": [
+            {
+              "name": "size",
+              "description": "Pool size (default medium)",
+              "type": "text",
+              "required": false,
+              "choices": ["small (14 maps)", "medium (18 maps)", "large (22 maps)"]
+            },
+            {
+              "name": "name",
+              "description": "osu! username, profile link or #id",
+              "type": "text",
+              "required": false
+            },
+            {
+              "name": "discord",
+              "description": "A Discord member who linked their osu! account",
+              "type": "member",
+              "required": false
+            },
+            {
+              "name": "mode",
+              "description": "Ruleset (default: the server's, then the player's own)",
+              "type": "text",
+              "required": false,
+              "choices": ["osu!", "taiko", "catch", "mania"]
+            }
+          ]
         }
       ]
     },
