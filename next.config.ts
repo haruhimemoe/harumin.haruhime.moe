@@ -18,7 +18,7 @@ import type { NextConfig } from "next";
 const withMDX = createMDX({
   extension: /\.mdx?$/,
   // Turbopack only takes MDX plugins as a module name plus serializable options.
-  options: { remarkPlugins: [["@haruhimemoe/ui/remark", {}]] },
+  options: { remarkPlugins: ["remark-gfm", ["@haruhimemoe/ui/remark", {}]] },
 });
 
 const CSP = [
