@@ -450,6 +450,46 @@
       ]
     },
     {
+      "name": "practice",
+      "description": "Maps like your top plays, a bit harder (from pools.haruhime.moe)",
+      "category": "haruhime",
+      "categoryName": "haruhime tools",
+      "options": [
+        {
+          "name": "name",
+          "description": "osu! username, profile link or #id",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "discord",
+          "description": "A Discord member who linked their osu! account",
+          "type": "member",
+          "required": false
+        },
+        {
+          "name": "mods",
+          "description": "Mods (default: your most played in your top 100)",
+          "type": "text",
+          "required": false,
+          "choices": ["NM", "HD", "HR", "DT"]
+        },
+        {
+          "name": "stars",
+          "description": "Star target (default: a bit over your usual)",
+          "type": "number",
+          "required": false
+        },
+        {
+          "name": "count",
+          "description": "How many maps (default 10)",
+          "type": "whole number",
+          "required": false
+        }
+      ],
+      "subcommands": []
+    },
+    {
       "name": "link",
       "description": "Link your osu! account, or see which one is linked",
       "category": "bot",
