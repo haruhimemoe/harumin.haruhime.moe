@@ -2,15 +2,16 @@
  * @file src/lib/cards/PoolCard.tsx
  * @desc The pack and pool image (/pack, /pool view, check and parse, and their links): the
  *       name, where it came from and its star span, then one row per slot with its bucket chip,
- *       map, stars and length. The check view adds each map's verdict on the right.
+ *       map, stars and length. The check view adds each map's verdict on the right; the me view
+ *       adds the player's grade, accuracy and pp, or "not played".
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Fri Oct 9, 2026
  */
 
 import { MAX_POOL_SLOTS, type PoolCard as PoolCardData } from "@haruhimemoe/harumin-config";
-import { Empty, FootLine, Frame, oneLine, Stars, TitleBlock } from "@/lib/cards/parts";
-import { duration, INK, int, listHeight, stars } from "@/lib/cards/theme";
+import { Empty, FootLine, Frame, GradeLetter, oneLine, Stars, TitleBlock } from "@/lib/cards/parts";
+import { duration, INK, int, listHeight, percent, pp, stars } from "@/lib/cards/theme";
 
 const HEADER_HEIGHT = 138;
 const ROW_HEIGHT = 42;
@@ -173,6 +174,49 @@ export const PoolCard = ({ card }: { card: PoolCardData }) => {
                       {check.text}
                     </div>
                   ) : null}
+                </div>
+              ) : null}
+              {card.source === "me" ? (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-end",
+                    gap: 10,
+                    width: 210,
+                    fontSize: 16,
+                  }}
+                >
+                  {slot.mine ? (
+                    <>
+                      <div style={{ display: "flex", width: 40, justifyContent: "center" }}>
+                        <GradeLetter grade={slot.mine.grade} size={26} />
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          width: 70,
+                          justifyContent: "flex-end",
+                          fontWeight: 800,
+                        }}
+                      >
+                        {percent(slot.mine.accuracy)}
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          width: 74,
+                          justifyContent: "flex-end",
+                          color: INK.rose,
+                          fontWeight: 800,
+                        }}
+                      >
+                        {slot.mine.pp !== null ? pp(slot.mine.pp) : "no pp"}
+                      </div>
+                    </>
+                  ) : (
+                    <div style={{ display: "flex", color: INK.muted }}>not played</div>
+                  )}
                 </div>
               ) : null}
             </div>

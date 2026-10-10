@@ -1,0 +1,330 @@
+{
+  "source": "me",
+  "name": "Test Pool",
+  "subtitle": "played 24 of 32 · avg 96.12%",
+  "mapCount": 32,
+  "stars": { "min": 5, "max": 8.1 },
+  "slots": [
+    {
+      "label": "NM1",
+      "mod": "NM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 0]",
+      "beatmapId": 1000,
+      "stars": 5,
+      "lengthSeconds": 100,
+      "check": null,
+      "mine": { "grade": "XH", "accuracy": 90, "pp": 200 }
+    },
+    {
+      "label": "NM2",
+      "mod": "NM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 1]",
+      "beatmapId": 1001,
+      "stars": 5.1,
+      "lengthSeconds": 101,
+      "check": null,
+      "mine": { "grade": "X", "accuracy": 90.25, "pp": 207 }
+    },
+    {
+      "label": "NM3",
+      "mod": "NM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 2]",
+      "beatmapId": 1002,
+      "stars": 5.2,
+      "lengthSeconds": 102,
+      "check": null,
+      "mine": { "grade": "S", "accuracy": 90.5, "pp": 214 }
+    },
+    {
+      "label": "NM4",
+      "mod": "NM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 3]",
+      "beatmapId": 1003,
+      "stars": 5.3,
+      "lengthSeconds": 103,
+      "check": null,
+      "mine": null
+    },
+    {
+      "label": "NM5",
+      "mod": "NM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 4]",
+      "beatmapId": 1004,
+      "stars": 5.4,
+      "lengthSeconds": 104,
+      "check": null,
+      "mine": { "grade": "B", "accuracy": 91, "pp": null }
+    },
+    {
+      "label": "NM6",
+      "mod": "NM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 5]",
+      "beatmapId": 1005,
+      "stars": 5.5,
+      "lengthSeconds": 105,
+      "check": null,
+      "mine": { "grade": "D", "accuracy": 91.25, "pp": 235 }
+    },
+    {
+      "label": "HD1",
+      "mod": "HD",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 6]",
+      "beatmapId": 1006,
+      "stars": 5.6,
+      "lengthSeconds": 106,
+      "check": null,
+      "mine": { "grade": "XH", "accuracy": 91.5, "pp": 242 }
+    },
+    {
+      "label": "HD2",
+      "mod": "HD",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 7]",
+      "beatmapId": 1007,
+      "stars": 5.7,
+      "lengthSeconds": 107,
+      "check": null,
+      "mine": null
+    },
+    {
+      "label": "HD3",
+      "mod": "HD",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 8]",
+      "beatmapId": 1008,
+      "stars": 5.8,
+      "lengthSeconds": 108,
+      "check": null,
+      "mine": { "grade": "S", "accuracy": 92, "pp": 256 }
+    },
+    {
+      "label": "HD4",
+      "mod": "HD",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 9]",
+      "beatmapId": 1009,
+      "stars": 5.9,
+      "lengthSeconds": 109,
+      "check": null,
+      "mine": { "grade": "A", "accuracy": 92.25, "pp": null }
+    },
+    {
+      "label": "HD5",
+      "mod": "HD",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 10]",
+      "beatmapId": 1010,
+      "stars": 6,
+      "lengthSeconds": 110,
+      "check": null,
+      "mine": { "grade": "B", "accuracy": 92.5, "pp": 270 }
+    },
+    {
+      "label": "HD6",
+      "mod": "HD",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 11]",
+      "beatmapId": 1011,
+      "stars": 6.1,
+      "lengthSeconds": 111,
+      "check": null,
+      "mine": null
+    },
+    {
+      "label": "HR1",
+      "mod": "HR",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 12]",
+      "beatmapId": 1012,
+      "stars": 6.2,
+      "lengthSeconds": 112,
+      "check": null,
+      "mine": { "grade": "XH", "accuracy": 93, "pp": 284 }
+    },
+    {
+      "label": "HR2",
+      "mod": "HR",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 13]",
+      "beatmapId": 1013,
+      "stars": 6.3,
+      "lengthSeconds": 113,
+      "check": null,
+      "mine": { "grade": "X", "accuracy": 93.25, "pp": 291 }
+    },
+    {
+      "label": "HR3",
+      "mod": "HR",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 14]",
+      "beatmapId": 1014,
+      "stars": 6.4,
+      "lengthSeconds": 114,
+      "check": null,
+      "mine": { "grade": "S", "accuracy": 93.5, "pp": null }
+    },
+    {
+      "label": "HR4",
+      "mod": "HR",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 15]",
+      "beatmapId": 1015,
+      "stars": 6.5,
+      "lengthSeconds": 115,
+      "check": null,
+      "mine": null
+    },
+    {
+      "label": "HR5",
+      "mod": "HR",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 16]",
+      "beatmapId": 1016,
+      "stars": 6.6,
+      "lengthSeconds": 116,
+      "check": null,
+      "mine": { "grade": "B", "accuracy": 94, "pp": 312 }
+    },
+    {
+      "label": "HR6",
+      "mod": "HR",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 17]",
+      "beatmapId": 1017,
+      "stars": 6.7,
+      "lengthSeconds": 117,
+      "check": null,
+      "mine": { "grade": "D", "accuracy": 94.25, "pp": 319 }
+    },
+    {
+      "label": "DT1",
+      "mod": "DT",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 18]",
+      "beatmapId": 1018,
+      "stars": 6.8,
+      "lengthSeconds": 118,
+      "check": null,
+      "mine": { "grade": "XH", "accuracy": 94.5, "pp": 326 }
+    },
+    {
+      "label": "DT2",
+      "mod": "DT",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 19]",
+      "beatmapId": 1019,
+      "stars": 6.9,
+      "lengthSeconds": 119,
+      "check": null,
+      "mine": null
+    },
+    {
+      "label": "DT3",
+      "mod": "DT",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 20]",
+      "beatmapId": 1020,
+      "stars": 7,
+      "lengthSeconds": 120,
+      "check": null,
+      "mine": { "grade": "S", "accuracy": 95, "pp": 340 }
+    },
+    {
+      "label": "DT4",
+      "mod": "DT",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 21]",
+      "beatmapId": 1021,
+      "stars": 7.1,
+      "lengthSeconds": 121,
+      "check": null,
+      "mine": { "grade": "A", "accuracy": 95.25, "pp": 347 }
+    },
+    {
+      "label": "DT5",
+      "mod": "DT",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 22]",
+      "beatmapId": 1022,
+      "stars": 7.2,
+      "lengthSeconds": 122,
+      "check": null,
+      "mine": { "grade": "B", "accuracy": 95.5, "pp": 354 }
+    },
+    {
+      "label": "DT6",
+      "mod": "DT",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 23]",
+      "beatmapId": 1023,
+      "stars": 7.3,
+      "lengthSeconds": 123,
+      "check": null,
+      "mine": null
+    },
+    {
+      "label": "FM1",
+      "mod": "FM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 24]",
+      "beatmapId": 1024,
+      "stars": 7.4,
+      "lengthSeconds": 124,
+      "check": null,
+      "mine": { "grade": "XH", "accuracy": 96, "pp": null }
+    },
+    {
+      "label": "FM2",
+      "mod": "FM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 25]",
+      "beatmapId": 1025,
+      "stars": 7.5,
+      "lengthSeconds": 125,
+      "check": null,
+      "mine": { "grade": "X", "accuracy": 96.25, "pp": 375 }
+    },
+    {
+      "label": "FM3",
+      "mod": "FM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 26]",
+      "beatmapId": 1026,
+      "stars": 7.6,
+      "lengthSeconds": 126,
+      "check": null,
+      "mine": { "grade": "S", "accuracy": 96.5, "pp": 382 }
+    },
+    {
+      "label": "FM4",
+      "mod": "FM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 27]",
+      "beatmapId": 1027,
+      "stars": 7.7,
+      "lengthSeconds": 127,
+      "check": null,
+      "mine": null
+    },
+    {
+      "label": "FM5",
+      "mod": "FM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 28]",
+      "beatmapId": 1028,
+      "stars": 7.8,
+      "lengthSeconds": 128,
+      "check": null,
+      "mine": { "grade": "B", "accuracy": 97, "pp": 396 }
+    },
+    {
+      "label": "FM6",
+      "mod": "FM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 29]",
+      "beatmapId": 1029,
+      "stars": 7.9,
+      "lengthSeconds": 129,
+      "check": null,
+      "mine": { "grade": "D", "accuracy": 97.25, "pp": null }
+    },
+    {
+      "label": "FM1",
+      "mod": "FM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 30]",
+      "beatmapId": 1030,
+      "stars": 8,
+      "lengthSeconds": 130,
+      "check": null,
+      "mine": { "grade": "XH", "accuracy": 97.5, "pp": 410 }
+    },
+    {
+      "label": "FM2",
+      "mod": "FM",
+      "title": "Some Artist - A Rather Long Song Title For Testing [Insane 31]",
+      "beatmapId": 1031,
+      "stars": 8.1,
+      "lengthSeconds": 131,
+      "check": null,
+      "mine": null
+    }
+  ],
+  "note": "played 24 of 32 · avg 96.12%"
+}
