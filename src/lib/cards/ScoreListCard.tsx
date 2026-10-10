@@ -5,7 +5,7 @@
  *       combo and pp (and the full-combo pp when there is one), and the page number along the bottom.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Fri Oct 9, 2026
  */
 
 import {
@@ -15,11 +15,24 @@ import {
 } from "@haruhimemoe/harumin-config";
 import { Frame, GradeLetter, Mods, oneLine, Signature, Stars } from "@/lib/cards/parts";
 import { PlayerLine } from "@/lib/cards/ScoreCard";
-import { ago, INK, int, mapCoverUrl, percent, pp, RULESET_LABELS, stars } from "@/lib/cards/theme";
+import {
+  ago,
+  clip,
+  INK,
+  int,
+  mapCoverUrl,
+  percent,
+  pp,
+  RULESET_LABELS,
+  stars,
+} from "@/lib/cards/theme";
 
 const ROW_HEIGHT = 96;
 const HEADER_HEIGHT = 104;
 const FOOTER_HEIGHT = 58;
+/** The title and difficulty lines' room, in latin character widths. */
+const TITLE_ROOM = 40;
+const VERSION_ROOM = 34;
 
 /**
  * @function scoreListCardSize
@@ -55,12 +68,22 @@ const Row = ({
       borderTop: `1.5px solid ${INK.rule}`,
     }}
   >
-    <div style={{ display: "flex", width: 52, fontSize: 26, fontWeight: 800, color: INK.muted }}>
+    <div
+      style={{
+        display: "flex",
+        flexShrink: 0,
+        width: 52,
+        fontSize: 26,
+        fontWeight: 800,
+        color: INK.muted,
+      }}
+    >
       {`#${place}`}
     </div>
     <div
       style={{
         display: "flex",
+        flexShrink: 0,
         width: 128,
         height: 64,
         borderRadius: 4,
@@ -75,16 +98,25 @@ const Row = ({
           width={128}
           height={64}
           alt=""
-          style={{ width: 128, height: 64, objectFit: "cover" }}
+          style={{ width: 128, height: 64, objectFit: "cover", objectPosition: "center" }}
         />
       ) : null}
     </div>
-    <div style={{ display: "flex", flexDirection: "column", flexGrow: 1, minWidth: 0, gap: 2 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        flexGrow: 1,
+        flexBasis: 0,
+        minWidth: 0,
+        gap: 2,
+      }}
+    >
       <div style={{ display: "flex", fontSize: 22, fontWeight: 800, ...oneLine }}>
-        {score.map.title}
+        {clip(score.map.title, TITLE_ROOM)}
       </div>
       <div style={{ display: "flex", gap: 5, fontSize: 16, color: INK.soft, ...oneLine }}>
-        {`[${score.map.version}] · `}
+        {`[${clip(score.map.version, VERSION_ROOM)}] · `}
         {score.map.stars !== null ? (
           <Stars value={stars(score.map.stars)} size={15} color={INK.soft} />
         ) : null}
@@ -99,8 +131,18 @@ const Row = ({
         </div>
       </div>
     </div>
-    <GradeLetter grade={score.grade} size={44} />
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", width: 150 }}>
+    <div style={{ display: "flex", flexShrink: 0, width: 56, justifyContent: "center" }}>
+      <GradeLetter grade={score.grade} size={44} />
+    </div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-end",
+        flexShrink: 0,
+        width: 150,
+      }}
+    >
       <div
         style={{
           display: "flex",

@@ -10,7 +10,7 @@
 import { CARD_ACCENTS } from "@haruhimemoe/harumin-config";
 import { beforeAll, describe, expect, it } from "vitest";
 import { isCardKind, renderCard } from "@/lib/cards/render";
-import { accentColor, ago, INK } from "@/lib/cards/theme";
+import { accentColor, ago, clip, INK } from "@/lib/cards/theme";
 
 const TOKEN = "c".repeat(40);
 
@@ -131,5 +131,15 @@ describe("accentColor", () => {
       expect(color).toMatch(/^#[0-9a-f]{6}$/);
       expect(contrast(color, INK.paper)).toBeGreaterThanOrEqual(3);
     }
+  });
+});
+
+describe("clip", () => {
+  it("keeps short text and cuts long text with three dots", () => {
+    expect(clip("Short", 10)).toBe("Short");
+    expect(clip("abcdefghijklmnop", 10)).toBe("abcdefg...");
+  });
+  it("counts wide characters twice", () => {
+    expect(clip("ああああああ", 10)).toBe("あああ...");
   });
 });

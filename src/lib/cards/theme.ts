@@ -209,3 +209,25 @@ export const listHeight = ({
 /** The Discord CDN icon for a guild, always a PNG (the renderer draws one frame). */
 export const guildIconPng = (guildId: string, icon: string): string =>
   `https://cdn.discordapp.com/icons/${guildId}/${icon}.png?size=128`;
+
+/** CJK and fullwidth characters take about two latin widths. */
+const isWide = (char: string): boolean => (char.codePointAt(0) ?? 0) >= 0x2e80;
+
+/**
+ * @function clip
+ * @param text {string} a line of text
+ * @param max {number} its room, in latin character widths (a wide character counts 2)
+ * @returns {string} the text, or its start and "..." when it doesn't fit (Nunito has no "…")
+ */
+export const clip = (text: string, max: number): string => {
+  const width = (chars: readonly string[]) =>
+    chars.reduce((sum, char) => sum + (isWide(char) ? 2 : 1), 0);
+  const chars = [...text];
+  if (width(chars) <= max) return text;
+  const kept: string[] = [];
+  for (const char of chars) {
+    if (width([...kept, char]) > max - 3) break;
+    kept.push(char);
+  }
+  return `${kept.join("").trimEnd()}...`;
+};
