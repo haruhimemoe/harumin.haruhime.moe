@@ -544,6 +544,19 @@
           "required": false
         },
         {
+          "name": "length",
+          "description": "Map length (default: about as long as your top plays)",
+          "type": "text",
+          "required": false,
+          "choices": [
+            "short (under 2:00)",
+            "medium (2:00 to 4:00)",
+            "long (4:00 to 7:00)",
+            "marathon (over 7:00)",
+            "any"
+          ]
+        },
+        {
           "name": "count",
           "description": "How many maps (default 10)",
           "type": "whole number",
