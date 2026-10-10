@@ -4,7 +4,7 @@ The website for [harumin](https://github.com/haruhimemoe/harumin), the osu! Disc
 
 ## Running it
 
-Needs [Bun](https://bun.sh) 1.4, the harumin bot running (the dashboard asks it which servers you manage), and the haruhime.moe accounts hub's database.
+Needs [Bun](https://bun.sh) 1.4 and Node 24, the harumin bot running (the dashboard asks it which servers you manage), and the haruhime.moe accounts hub's database.
 
 ```sh
 bun install
