@@ -151,7 +151,7 @@ const Row = ({
           color: score.pp === null ? INK.muted : INK.rose,
         }}
       >
-        {score.pp === null ? "no pp" : `${score.ppApprox ? "≈" : ""}${pp(score.pp)}`}
+        {score.pp === null ? "no pp" : `${score.ppApprox ? "~" : ""}${pp(score.pp)}`}
       </div>
       {score.fcPp !== null ? (
         <div style={{ display: "flex", fontSize: 16, fontWeight: 800, color: INK.soft }}>

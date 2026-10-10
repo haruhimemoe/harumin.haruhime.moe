@@ -88,7 +88,7 @@ export const ScoreCard = ({ card, now }: { card: ScoreCardData; now?: number }) 
                 color: score.pp === null ? INK.muted : INK.rose,
               }}
             >
-              {score.pp === null ? "no pp" : `${score.ppApprox ? "≈" : ""}${pp(score.pp)}`}
+              {score.pp === null ? "no pp" : `${score.ppApprox ? "~" : ""}${pp(score.pp)}`}
             </div>
             {score.fcPp !== null && score.fcAccuracy !== null ? (
               <div style={{ display: "flex", fontSize: 20, color: INK.soft, paddingBottom: 6 }}>
