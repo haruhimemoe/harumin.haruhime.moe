@@ -478,6 +478,37 @@
               "choices": ["osu!", "taiko", "catch", "mania"]
             }
           ]
+        },
+        {
+          "name": "me",
+          "description": "Your best score on each map of a pool",
+          "options": [
+            {
+              "name": "pool",
+              "description": "Pool link, pack link or key (default: the last one here)",
+              "type": "text",
+              "required": false
+            },
+            {
+              "name": "name",
+              "description": "osu! username, profile link or #id",
+              "type": "text",
+              "required": false
+            },
+            {
+              "name": "discord",
+              "description": "A Discord member who linked their osu! account",
+              "type": "member",
+              "required": false
+            },
+            {
+              "name": "mode",
+              "description": "Ruleset (default: the server's, then the player's own)",
+              "type": "text",
+              "required": false,
+              "choices": ["osu!", "taiko", "catch", "mania"]
+            }
+          ]
         }
       ]
     },
