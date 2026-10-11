@@ -58,6 +58,19 @@ export const inviteUrl = (guildId?: string): string => {
   return url.href;
 };
 
+/**
+ * @function userInstallUrl
+ * @returns {string} the link that adds harumin to your own account, for its commands in any DM
+ *          or server (no bot user joins anything)
+ */
+export const userInstallUrl = (): string => {
+  const url = new URL("https://discord.com/oauth2/authorize");
+  url.searchParams.set("client_id", DISCORD_CLIENT_ID);
+  url.searchParams.set("integration_type", "1");
+  url.searchParams.set("scope", "applications.commands");
+  return url.href;
+};
+
 /** The haruhime.moe account page, where Discord gets linked. */
 export const HUB_ACCOUNT_URL = "https://www.haruhime.moe/account";
 

@@ -11,7 +11,7 @@ import { HARUHIME_ORG, homeMetadata, ld } from "@haruhimemoe/next-kit/seo";
 import { ButtonLink, DiscordIcon, JsonLd, TextLink } from "@haruhimemoe/ui";
 import { ChatDemo } from "@/components/ChatDemo";
 import { SEO_SITE } from "@/constants/seo";
-import { HUB_ACCOUNT_URL, inviteUrl, TOOL_URLS } from "@/constants/site";
+import { HUB_ACCOUNT_URL, inviteUrl, TOOL_URLS, userInstallUrl } from "@/constants/site";
 
 /** "the osu! Discord bot · harumin.haruhime.moe", its description and canonical URL. */
 export const metadata = homeMetadata(SEO_SITE);
@@ -88,6 +88,9 @@ export default function Home() {
             <ButtonLink href={inviteUrl()} size="lg">
               <DiscordIcon className="size-5" />
               Add to Discord
+            </ButtonLink>
+            <ButtonLink href={userInstallUrl()} size="lg" variant="secondary">
+              Add to your apps
             </ButtonLink>
             <ButtonLink href="/commands" size="lg" variant="secondary">
               See the commands
