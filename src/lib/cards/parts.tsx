@@ -7,7 +7,7 @@
  *       child is a flex box, and every image has a size.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import type { Grade } from "@haruhimemoe/harumin-config";
@@ -22,6 +22,9 @@ import {
   modsText,
   SCREENTONE,
 } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.parts");
 
 /** One line, cut at the edge (Nunito has no "…" glyph, so no ellipsis). */
 export const oneLine: CSSProperties = {
@@ -236,7 +239,7 @@ export const Signature = ({ text }: { text?: string | undefined }) => (
   <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 16 }}>
     {text ? <div style={{ color: INK.muted, fontWeight: 800 }}>{text}</div> : null}
     <div style={{ display: "flex", alignItems: "center", fontWeight: 800, color: INK.ink }}>
-      harumin
+      {t("harumin")}
       <div
         style={{
           width: 7,

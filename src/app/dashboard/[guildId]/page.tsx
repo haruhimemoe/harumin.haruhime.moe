@@ -5,13 +5,14 @@
  *       server, or it's a 404. Never cached.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import { guildIconUrl, MAX_TRACKED_PER_GUILD, snowflakeSchema } from "@haruhimemoe/harumin-config";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { Panel } from "@/components/Panel";
 import { SettingsForm } from "@/components/SettingsForm";
 import { discordIdOf, requireUser } from "@/lib/auth";
@@ -40,6 +41,7 @@ const RULESET_NAMES: Record<string, string> = {
  */
 export default async function GuildPage({ params }: Props) {
   const { guildId } = await params;
+  const t = await getTranslations("harumin-site");
   if (!snowflakeSchema.safeParse(guildId).success) notFound();
   const user = await requireUser(`/dashboard/${guildId}`);
   const discordId = await discordIdOf(user);
@@ -52,10 +54,7 @@ export default async function GuildPage({ params }: Props) {
     if (!(error instanceof BotUnavailableError)) throw error;
     return (
       <div>
-        <Panel title="harumin isn't answering">
-          Settings need the bot to confirm you manage this server, and it's offline right now. Try
-          again in a minute.
-        </Panel>
+        <Panel title={t("dashboard.offline")}>{t("guild.offlineBody")}</Panel>
       </div>
     );
   }
@@ -72,7 +71,7 @@ export default async function GuildPage({ params }: Props) {
   return (
     <div>
       <Link href="/dashboard" className="font-bold text-c3 text-sm hover:text-c1">
-        ← All servers
+        {t("guild.allServers")}
       </Link>
       <header className="mt-4 flex items-center gap-4">
         {icon ? (
@@ -99,17 +98,18 @@ export default async function GuildPage({ params }: Props) {
 
       <section className="mt-14" aria-labelledby="tracked">
         <h2 id="tracked" className="font-extrabold text-2xl text-c1">
-          Tracked players{" "}
+          {t("guild.tracked")}{" "}
           <span className="text-c4 text-lg">
             {tracks.length}/{MAX_TRACKED_PER_GUILD}
           </span>
         </h2>
         <p className="mt-1 text-c3 text-sm">
-          New top plays get posted to these channels. Add and remove them with{" "}
-          <code className="font-mono">/track</code> in Discord.
+          {t.rich("guild.trackedLead", {
+            code: (chunks) => <code className="font-mono">{chunks}</code>,
+          })}
         </p>
         {tracks.length === 0 ? (
-          <p className="panel mt-5 border-dashed p-5 text-c3">Nobody tracked yet.</p>
+          <p className="panel mt-5 border-dashed p-5 text-c3">{t("guild.nobody")}</p>
         ) : (
           <ul className="panel mt-5 divide-y divide-c1/15">
             {tracks.map((track) => (
@@ -127,7 +127,7 @@ export default async function GuildPage({ params }: Props) {
                   {RULESET_NAMES[track.mode]}
                 </span>
                 <span className="ml-auto text-c3 text-sm">
-                  #{channelName.get(track.channelId) ?? "a channel harumin can't see"}
+                  #{channelName.get(track.channelId) ?? t("guild.hiddenChannel")}
                 </span>
               </li>
             ))}

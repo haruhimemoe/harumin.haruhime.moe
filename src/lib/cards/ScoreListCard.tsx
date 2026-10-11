@@ -5,7 +5,7 @@
  *       combo and pp (and the full-combo pp when there is one), and the page number along the bottom.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Fri Oct 9, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import {
@@ -26,6 +26,9 @@ import {
   RULESET_LABELS,
   stars,
 } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.scoreListCard");
 
 const ROW_HEIGHT = 96;
 const HEADER_HEIGHT = 104;
@@ -208,7 +211,7 @@ export const ScoreListCard = ({ card, now }: { card: ScoreListCardData; now?: nu
           color: INK.muted,
         }}
       >
-        Nothing here.
+        {t("nothingHere")}
       </div>
     )}
     <div

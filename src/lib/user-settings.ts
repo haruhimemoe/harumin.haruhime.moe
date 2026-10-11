@@ -7,7 +7,7 @@
  *       difficulty link or id.
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import "server-only";
@@ -29,7 +29,10 @@ export type UserSettingsPatch = Partial<
 /** readCardForm's answer. */
 export type CardFormRead =
   | { ok: true; value: Required<UserSettingsPatch> }
-  | { ok: false; message: string };
+  | { ok: false; code: CardFormError };
+
+/** What's wrong with a card form; the page words it. */
+export type CardFormError = "accent" | "cover" | "set-link" | "not-a-map";
 
 /** A difficulty id alone, or at the end of a /b/, /beatmaps/ or /beatmapsets/…#mode/ link. */
 const FAVORITE = /(?:\/b\/|\/beatmaps\/|#(?:osu|taiko|fruits|mania)\/)?(\d{1,10})$/;
@@ -46,19 +49,19 @@ export const readCardForm = (form: FormData): CardFormRead => {
   const cover = String(form.get("cover") ?? "");
   const favorite = String(form.get("favorite") ?? "").trim();
   if (!(CARD_ACCENTS as readonly string[]).includes(accent)) {
-    return { ok: false, message: "Pick one of the colors." };
+    return { ok: false, code: "accent" };
   }
   if (!(CARD_COVERS as readonly string[]).includes(cover)) {
-    return { ok: false, message: "Pick a cover." };
+    return { ok: false, code: "cover" };
   }
   let favoriteBeatmapId: number | null = null;
   if (favorite) {
     if (/\/beatmapsets\/\d+\/?$/.test(favorite)) {
-      return { ok: false, message: "Use a difficulty link (one with #osu/ and an id), or the id." };
+      return { ok: false, code: "set-link" };
     }
     const id = Number(FAVORITE.exec(favorite)?.[1] ?? Number.NaN);
     if (!Number.isSafeInteger(id) || id < 1 || !/^(\d+|https?:\/\/\S+)$/.test(favorite)) {
-      return { ok: false, message: "That isn't a beatmap link or id." };
+      return { ok: false, code: "not-a-map" };
     }
     favoriteBeatmapId = id;
   }

@@ -5,12 +5,13 @@
  *       cache runs out on its own). Next checks the action's origin.
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { getTranslations } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth";
 import { getBot } from "@/lib/bot";
 import type { SaveResult } from "@/lib/dashboard";
@@ -24,14 +25,15 @@ import { readCardForm, saveUserSettings } from "@/lib/user-settings";
  * @returns {Promise<SaveResult>} what to show
  */
 export async function saveCard(_previous: SaveResult | null, form: FormData): Promise<SaveResult> {
+  const t = await getTranslations("harumin-site.card.result");
   const user = await getCurrentUser();
-  if (!user) return { ok: false, message: "Sign in again to save." };
+  if (!user) return { ok: false, message: t("signIn") };
   const read = readCardForm(form);
-  if (!read.ok) return read;
+  if (!read.ok) return { ok: false, message: t(read.code) };
   await saveUserSettings(getDb(), user.osuId, read.value);
   await getBot()
     .revalidateUser(user.osuId)
     .catch(() => undefined);
   revalidatePath("/card");
-  return { ok: true, message: "Saved. /osu shows it now." };
+  return { ok: true, message: t("saved") };
 }

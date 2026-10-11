@@ -4,12 +4,13 @@
  *       choices. Each command has an anchor (/commands#top).
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import { pageMetadata } from "@haruhimemoe/next-kit/seo";
 import { PageHeader } from "@haruhimemoe/ui";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { PAGE_SEO, SEO_SITE } from "@/constants/seo";
 import {
   COMMANDS,
@@ -22,7 +23,7 @@ import {
 /** The page's title, description and canonical URL. */
 export const metadata: Metadata = pageMetadata(SEO_SITE, PAGE_SEO.commands);
 
-const Options = ({ options }: { options: readonly CommandOption[] }) =>
+const Options = ({ options, required }: { options: readonly CommandOption[]; required: string }) =>
   options.length === 0 ? null : (
     <dl className="mt-3 grid gap-x-4 gap-y-1.5 text-sm sm:grid-cols-[auto_1fr]">
       {options.map((option) => (
@@ -30,7 +31,7 @@ const Options = ({ options }: { options: readonly CommandOption[] }) =>
           <dt className="font-mono text-c1">
             {option.name}
             {option.required ? (
-              <span className="ml-1 text-h1" title="required">
+              <span className="ml-1 text-h1" title={required}>
                 *
               </span>
             ) : null}
@@ -49,22 +50,21 @@ const Options = ({ options }: { options: readonly CommandOption[] }) =>
 
 /**
  * @function CommandsPage
- * @returns {JSX.Element} the command reference
+ * @returns {Promise<JSX.Element>} the command reference
  */
-export default function CommandsPage() {
+export default async function CommandsPage() {
+  const t = await getTranslations("harumin-site.commands");
+  const tb = await getTranslations("harumin-bot.commands");
+  // The bot's own words for its commands, from the same catalog it registers with Discord.
+  const said = (path: string, english: string) => (tb.has(path) ? tb(path) : english);
   const groups = groupCommands(COMMANDS);
   return (
     <div className="flex flex-col">
       <PageHeader
-        title="Commands"
-        lead={
-          <>
-            Player options default to your linked account. Map options default to the last map in
-            the channel. <span className="text-h1">*</span> means required.
-          </>
-        }
+        title={t("title")}
+        lead={t.rich("lead", { star: (chunks) => <span className="text-h1">{chunks}</span> })}
       />
-      <nav aria-label="Categories" className="mt-6 flex flex-wrap gap-2">
+      <nav aria-label={t("categories")} className="mt-6 flex flex-wrap gap-2">
         {groups.map((group) => (
           <a
             key={group.category}
@@ -84,7 +84,9 @@ export default function CommandsPage() {
             {group.commands.map((command) => (
               <li key={command.name} id={command.name} className="panel scroll-mt-24 p-5">
                 <h3 className="font-bold font-mono text-c1 text-lg">/{command.name}</h3>
-                <p className="mt-1 text-c2">{command.description}</p>
+                <p className="mt-1 text-c2">
+                  {said(`${command.name}.description`, command.description)}
+                </p>
                 {command.subcommands.length > 0 ? (
                   <ul className="mt-4 space-y-4">
                     {command.subcommands.map((sub) => (
@@ -92,8 +94,10 @@ export default function CommandsPage() {
                         <p className="font-mono text-c1 text-sm">
                           {usageLine(`${command.name} ${sub.name}`, sub.options)}
                         </p>
-                        <p className="text-c3 text-sm">{sub.description}</p>
-                        <Options options={sub.options} />
+                        <p className="text-c3 text-sm">
+                          {said(`${command.name}.options.${sub.name}.description`, sub.description)}
+                        </p>
+                        <Options options={sub.options} required={t("required")} />
                       </li>
                     ))}
                   </ul>
@@ -102,7 +106,7 @@ export default function CommandsPage() {
                     <p className="mt-3 overflow-x-auto rounded-sm bg-b6 px-2 py-1 font-mono text-c2 text-sm">
                       {usageLine(command.name, command.options)}
                     </p>
-                    <Options options={command.options} />
+                    <Options options={command.options} required={t("required")} />
                   </>
                 )}
               </li>
@@ -110,7 +114,7 @@ export default function CommandsPage() {
           </ul>
         </section>
       ))}
-      <p className="mt-14 text-c4 text-sm">From harumin {COMMANDS_VERSION}.</p>
+      <p className="mt-14 text-c4 text-sm">{t("from", { version: COMMANDS_VERSION })}</p>
     </div>
   );
 }

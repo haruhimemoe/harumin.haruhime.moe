@@ -4,11 +4,14 @@
  *       saying what opening it does. bb draws its own previews, so this stays small.
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import type { BbCard as BbCardData } from "@haruhimemoe/harumin-config";
 import { FootLine, Frame, TitleBlock } from "@/lib/cards/parts";
+import { scope } from "./i18n";
+
+const t = scope("cards.bbCard");
 
 /** The image size. */
 export const BB_CARD_SIZE = { width: 1000, height: 208 } as const;
@@ -21,9 +24,9 @@ export const BB_CARD_SIZE = { width: 1000, height: 208 } as const;
 export const BbCard = ({ card }: { card: BbCardData }) => (
   <Frame {...BB_CARD_SIZE}>
     <TitleBlock
-      label="bb.haruhime.moe"
-      title={card.name || "BBCode template"}
-      subtitle="An osu! BBCode template. Open it to preview, copy or remix."
+      label={t("bbHaruhimeMoe")}
+      title={card.name || t("bbcodeTemplate")}
+      subtitle={t("anOsuBbcodeTemplate")}
       height={138}
     />
     <FootLine left={`template ${card.templateId}`} />

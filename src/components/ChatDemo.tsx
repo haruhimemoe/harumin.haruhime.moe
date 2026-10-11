@@ -5,9 +5,10 @@
  *       works because the channel remembers it. Sample data, labelled as such for assistive tech.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
+import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 const Avatar = ({ label, bot }: { label: string; bot?: boolean }) => (
@@ -27,11 +28,13 @@ const Message = ({
   name,
   bot,
   time,
+  app,
   children,
 }: {
   name: string;
   bot?: boolean;
   time: string;
+  app: string;
   children: ReactNode;
 }) => (
   <div className="flex gap-3">
@@ -41,7 +44,7 @@ const Message = ({
         <span className="font-bold text-c1">{name}</span>
         {bot ? (
           <span className="rounded-sm bg-c1 px-1 font-bold text-[10px] text-b4 uppercase leading-4">
-            App
+            {app}
           </span>
         ) : null}
         <span className="text-c4 text-xs">{time}</span>
@@ -59,37 +62,39 @@ const Embed = ({ children }: { children: ReactNode }) => (
 
 /**
  * @function ChatDemo
- * @returns {JSX.Element} the sample conversation
+ * @returns {Promise<JSX.Element>} the sample conversation
  */
-export function ChatDemo() {
+export async function ChatDemo() {
+  const t = await getTranslations("harumin-site.demo");
+  const app = t("app");
   return (
-    <figure aria-label="Sample Discord conversation with harumin" className="relative pt-4">
+    <figure aria-label={t("label")} className="relative pt-4">
       <p className="panel absolute top-0 left-4 z-10 px-3 py-1 font-bold text-c1 text-sm">
         #tourney-chat, 21:04
       </p>
       <div className="panel space-y-4 p-4 pt-7">
-        <Message name="yuki" time="Today at 21:04">
+        <Message name="yuki" time={t("time", { time: "21:04" })} app={app}>
           <span className="break-all text-c1 underline underline-offset-2">
             https://osu.ppy.sh/beatmapsets/1#osu/75
           </span>
-          <span className="block">is this one ok for the pool??</span>
+          <span className="block">{t("question")}</span>
         </Message>
-        <Message name="harumin" bot time="Today at 21:04">
+        <Message name="harumin" bot time={t("time", { time: "21:04" })} app={app}>
           <Embed>
-            <p className="text-c3 text-xs">Mapped by haruhime</p>
+            <p className="text-c3 text-xs">{t("mappedBy", { name: "haruhime" })}</p>
             <p className="font-bold text-c1">haruhime - first combo [Expert]</p>
             <div className="mt-2 grid grid-cols-2 gap-3 text-c2 text-xs">
               <div>
-                <p className="font-bold text-c1">Difficulty</p>
+                <p className="font-bold text-c1">{t("difficulty")}</p>
                 <p>
                   <b>6.12★</b> · NM
                 </p>
                 <p>CS 4 · AR 9.4 · OD 9</p>
               </div>
               <div>
-                <p className="font-bold text-c1">Length</p>
+                <p className="font-bold text-c1">{t("length")}</p>
                 <p>3:42 · 190 BPM</p>
-                <p>x1,384 · ranked</p>
+                <p>x1,384 · {t("ranked")}</p>
               </div>
             </div>
             <p className="mt-2 text-c2 text-xs">
@@ -98,14 +103,14 @@ export function ChatDemo() {
             </p>
           </Embed>
         </Message>
-        <Message name="yuki" time="Today at 21:05">
+        <Message name="yuki" time={t("time", { time: "21:05" })} app={app}>
           <code className="rounded-sm bg-b6 px-1 font-mono text-c1 text-sm">/score</code>
         </Message>
-        <Message name="harumin" bot time="Today at 21:05">
+        <Message name="harumin" bot time={t("time", { time: "21:05" })} app={app}>
           <Embed>
             <p className="text-c3 text-xs">yuki 🇯🇵 · 6,402pp (#12,840)</p>
             <p className="font-bold text-c1">haruhime - first combo [Expert]</p>
-            <p className="mt-1 text-c3 text-xs">Best score on this map</p>
+            <p className="mt-1 text-c3 text-xs">{t("bestScore")}</p>
             <p className="text-c2 text-xs">
               <b className="text-c1">S</b> · +HD · 6.31★
             </p>
@@ -116,8 +121,9 @@ export function ChatDemo() {
         </Message>
       </div>
       <figcaption className="panel relative z-10 -mt-3 mr-4 ml-auto w-fit max-w-xs px-3 py-1.5 text-c2 text-sm">
-        No map given to <code className="font-mono text-c1">/score</code>. The channel remembered
-        it.
+        {t.rich("caption", {
+          code: (chunks) => <code className="font-mono text-c1">{chunks}</code>,
+        })}
       </figcaption>
     </figure>
   );

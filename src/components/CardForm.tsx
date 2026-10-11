@@ -4,13 +4,14 @@
  *       map, saved through the server action, with the answer read out in a live region.
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 "use client";
 
 import { CARD_ACCENTS, type CardAccent, type UserSettings } from "@haruhimemoe/harumin-config";
 import { Button } from "@haruhimemoe/ui";
+import { useTranslations } from "next-intl";
 import { useActionState } from "react";
 import type { SaveResult } from "@/lib/dashboard";
 
@@ -22,10 +23,7 @@ export type CardFormProps = {
   action: (previous: SaveResult | null, form: FormData) => Promise<SaveResult>;
 };
 
-const COVERS = [
-  { value: "profile", label: "Profile cover" },
-  { value: "paper", label: "Plain paper" },
-] as const;
+const COVERS = ["profile", "paper"] as const;
 
 /**
  * @function CardForm
@@ -33,14 +31,13 @@ const COVERS = [
  * @returns {JSX.Element} the form
  */
 export function CardForm({ settings, colors, action }: CardFormProps) {
+  const t = useTranslations("harumin-site.card");
   const [result, submit, pending] = useActionState(action, null);
   return (
     <form action={submit} className="space-y-10">
       <fieldset>
-        <legend className="font-extrabold text-2xl text-c1">Accent</legend>
-        <p className="mt-1 text-c3 text-sm">
-          Colors your pp, the rule under your name, and the favorite line.
-        </p>
+        <legend className="font-extrabold text-2xl text-c1">{t("accent")}</legend>
+        <p className="mt-1 text-c3 text-sm">{t("accentLead")}</p>
         <div className="mt-5 flex flex-wrap gap-3">
           {CARD_ACCENTS.map((accent) => (
             <label key={accent} className="cursor-pointer">
@@ -65,19 +62,19 @@ export function CardForm({ settings, colors, action }: CardFormProps) {
       </fieldset>
 
       <fieldset>
-        <legend className="font-extrabold text-2xl text-c1">Cover</legend>
+        <legend className="font-extrabold text-2xl text-c1">{t("cover")}</legend>
         <div className="mt-5 flex flex-wrap gap-2">
           {COVERS.map((cover) => (
-            <label key={cover.value} className="cursor-pointer">
+            <label key={cover} className="cursor-pointer">
               <input
                 type="radio"
                 name="cover"
-                value={cover.value}
-                defaultChecked={settings.cover === cover.value}
+                value={cover}
+                defaultChecked={settings.cover === cover}
                 className="peer sr-only"
               />
               <span className="panel inline-block px-4 py-1.5 font-bold text-c1 text-sm transition-colors peer-checked:bg-c1 peer-checked:text-b4 peer-focus-visible:outline-2 peer-focus-visible:outline-h1 peer-focus-visible:outline-offset-2">
-                {cover.label}
+                {t(`covers.${cover}`)}
               </span>
             </label>
           ))}
@@ -86,11 +83,9 @@ export function CardForm({ settings, colors, action }: CardFormProps) {
 
       <div>
         <label htmlFor="favorite" className="font-extrabold text-2xl text-c1">
-          Favorite map
+          {t("favorite")}
         </label>
-        <p className="mt-1 text-c3 text-sm">
-          A difficulty link or id. /osu shows your best score on it. Leave it empty for none.
-        </p>
+        <p className="mt-1 text-c3 text-sm">{t("favoriteLead")}</p>
         <input
           id="favorite"
           name="favorite"
@@ -105,7 +100,7 @@ export function CardForm({ settings, colors, action }: CardFormProps) {
 
       <div className="flex flex-wrap items-center gap-4">
         <Button type="submit" disabled={pending}>
-          {pending ? "Saving…" : "Save"}
+          {pending ? t("saving") : t("save")}
         </Button>
         <p
           role="status"

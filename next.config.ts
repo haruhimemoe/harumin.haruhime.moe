@@ -6,14 +6,18 @@
  *       contentRewrites), and security headers on every route: no framing, no MIME sniffing, a
  *       trimmed Referer, and images only from here, data: URIs, Discord's CDN and osu!. The card
  *       image route reads Nunito from @haruhimemoe/brand at runtime, so its files are traced in.
+ *       next-intl reads src/i18n/request.ts.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import { contentRewrites } from "@haruhimemoe/next-kit/docs";
 import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const withMDX = createMDX({
   extension: /\.mdx?$/,
@@ -55,4 +59,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withMDX(nextConfig);
+export default withNextIntl(withMDX(nextConfig));

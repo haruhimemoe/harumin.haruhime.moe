@@ -4,17 +4,14 @@
  *       through the server action, with the answer read out in a live region.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 "use client";
 
-import {
-  AUTO_EMBED_KEYS,
-  AUTO_EMBED_LABELS,
-  type GuildSettings,
-} from "@haruhimemoe/harumin-config";
+import { AUTO_EMBED_KEYS, type GuildSettings } from "@haruhimemoe/harumin-config";
 import { Button } from "@haruhimemoe/ui";
+import { useTranslations } from "next-intl";
 import { useActionState } from "react";
 import type { SaveResult } from "@/lib/dashboard";
 import { MODE_CHOICES } from "@/lib/dashboard";
@@ -31,22 +28,20 @@ export type SettingsFormProps = {
  * @returns {JSX.Element} the form
  */
 export function SettingsForm({ settings, action }: SettingsFormProps) {
+  const t = useTranslations("harumin-site.settings");
   const [result, submit, pending] = useActionState(action, null);
   return (
     <form action={submit} className="space-y-10">
       <fieldset>
-        <legend className="font-extrabold text-2xl text-c1">Link cards</legend>
-        <p className="mt-1 text-c3 text-sm">
-          When someone posts one of these links, harumin answers with a card. Commands work either
-          way.
-        </p>
+        <legend className="font-extrabold text-2xl text-c1">{t("cards")}</legend>
+        <p className="mt-1 text-c3 text-sm">{t("cardsLead")}</p>
         <ul className="panel mt-5 divide-y divide-c1/15">
           {AUTO_EMBED_KEYS.map((key) => (
             <li key={key}>
               <label className="flex cursor-pointer items-center gap-4 px-5 py-4">
                 <span className="flex-1">
-                  <span className="block font-bold text-c1">{AUTO_EMBED_LABELS[key].name}</span>
-                  <span className="block text-c3 text-sm">{AUTO_EMBED_LABELS[key].line}</span>
+                  <span className="block font-bold text-c1">{t(`embeds.${key}.name`)}</span>
+                  <span className="block text-c3 text-sm">{t(`embeds.${key}.line`)}</span>
                 </span>
                 <input
                   type="checkbox"
@@ -65,10 +60,8 @@ export function SettingsForm({ settings, action }: SettingsFormProps) {
       </fieldset>
 
       <fieldset>
-        <legend className="font-extrabold text-2xl text-c1">Default ruleset</legend>
-        <p className="mt-1 text-c3 text-sm">
-          For commands where nobody picks a mode. "Player's own" uses each player's main mode.
-        </p>
+        <legend className="font-extrabold text-2xl text-c1">{t("ruleset")}</legend>
+        <p className="mt-1 text-c3 text-sm">{t("rulesetLead")}</p>
         <div className="mt-5 flex flex-wrap gap-2">
           {MODE_CHOICES.map((choice) => (
             <label key={choice.value} className="cursor-pointer">
@@ -80,7 +73,7 @@ export function SettingsForm({ settings, action }: SettingsFormProps) {
                 className="peer sr-only"
               />
               <span className="panel inline-block px-4 py-1.5 font-bold text-c1 text-sm transition-colors peer-checked:bg-c1 peer-checked:text-b4 peer-focus-visible:outline-2 peer-focus-visible:outline-h1 peer-focus-visible:outline-offset-2">
-                {choice.label}
+                {choice.value === "auto" ? t("playersOwn") : choice.label}
               </span>
             </label>
           ))}
@@ -89,7 +82,7 @@ export function SettingsForm({ settings, action }: SettingsFormProps) {
 
       <div className="flex flex-wrap items-center gap-4">
         <Button type="submit" disabled={pending}>
-          {pending ? "Saving…" : "Save"}
+          {pending ? t("saving") : t("save")}
         </Button>
         <p
           role="status"

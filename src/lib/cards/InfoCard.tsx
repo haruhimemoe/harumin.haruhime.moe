@@ -4,12 +4,15 @@
  *       uptime and ping.
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import type { InfoCard as InfoCardData } from "@haruhimemoe/harumin-config";
 import { FootLine, Frame, Stat, TitleBlock } from "@/lib/cards/parts";
 import { int } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.infoCard");
 
 /** The image size. */
 export const INFO_CARD_SIZE = { width: 1000, height: 320 } as const;
@@ -36,15 +39,15 @@ export const uptime = (seconds: number): string => {
 export const InfoCard = ({ card }: { card: InfoCardData }) => (
   <Frame {...INFO_CARD_SIZE}>
     <TitleBlock
-      label="About"
-      title={`harumin ${card.version}`}
-      subtitle="An osu! bot from haruhime.moe, for players, mappers and tournament hosts."
+      label={t("about")}
+      title={t("haruminVersion", { version: card.version })}
+      subtitle={t("anOsuBotFrom")}
       height={138}
     />
     <div style={{ display: "flex", gap: 56, padding: "22px 28px 0" }}>
-      <Stat label="Servers" value={int(card.guilds)} big />
-      <Stat label="Uptime" value={uptime(card.uptimeSeconds)} big />
-      <Stat label="Ping" value={`${int(card.pingMs)}ms`} big />
+      <Stat label={t("servers")} value={int(card.guilds)} big />
+      <Stat label={t("uptime")} value={uptime(card.uptimeSeconds)} big />
+      <Stat label={t("ping")} value={`${int(card.pingMs)}ms`} big />
     </div>
     <FootLine left="harumin.haruhime.moe" />
   </Frame>

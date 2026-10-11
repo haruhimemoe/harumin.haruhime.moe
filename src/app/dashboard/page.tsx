@@ -5,13 +5,14 @@
  *       link one. Never cached.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import { guildIconUrl, type ManageableGuild } from "@haruhimemoe/harumin-config";
 import { ButtonLink, PageHeader } from "@haruhimemoe/ui";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Panel } from "@/components/Panel";
 import { HUB_ACCOUNT_URL, inviteUrl } from "@/constants/site";
 import { discordIdOf, requireUser } from "@/lib/auth";
@@ -46,6 +47,7 @@ const GuildIcon = ({ guild }: { guild: ManageableGuild }) => {
  * @returns {Promise<JSX.Element>} the server list or what to do first
  */
 export default async function DashboardPage() {
+  const t = await getTranslations("harumin-site.dashboard");
   const user = await requireUser("/dashboard");
   const discordId = await discordIdOf(user);
   let guilds: ManageableGuild[] | null = null;
@@ -58,30 +60,23 @@ export default async function DashboardPage() {
   }
   return (
     <div className="flex flex-col gap-8">
-      <PageHeader
-        title="Dashboard"
-        lead={`Signed in as ${user.username}. Pick a server to set up.`}
-      />
+      <PageHeader title={t("title")} lead={t("lead", { username: user.username })} />
       <div>
         {!discordId ? (
           <Panel
-            title="Link Discord first"
-            action={<ButtonLink href={HUB_ACCOUNT_URL}>Link on haruhime.moe</ButtonLink>}
+            title={t("linkFirst")}
+            action={<ButtonLink href={HUB_ACCOUNT_URL}>{t("linkOnHub")}</ButtonLink>}
           >
-            Your haruhime account has no Discord linked, so harumin can't tell which servers are
-            yours. Link it, then come back.
+            {t("linkFirstBody")}
           </Panel>
         ) : guilds === null ? (
-          <Panel title="harumin isn't answering">
-            The dashboard asks the bot which servers you manage, and it's offline right now. Try
-            again in a minute.
-          </Panel>
+          <Panel title={t("offline")}>{t("offlineBody")}</Panel>
         ) : guilds.length === 0 ? (
           <Panel
-            title="No servers yet"
-            action={<ButtonLink href={inviteUrl()}>Add harumin to a server</ButtonLink>}
+            title={t("noServers")}
+            action={<ButtonLink href={inviteUrl()}>{t("addToServer")}</ButtonLink>}
           >
-            You'll see servers here where harumin is a member and you have Manage Server.
+            {t("noServersBody")}
           </Panel>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2">

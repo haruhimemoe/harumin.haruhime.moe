@@ -4,11 +4,14 @@
  *       where to link. The link button sits under the image.
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import type { LinkCard as LinkCardData } from "@haruhimemoe/harumin-config";
 import { Avatar, FootLine, Frame, TitleBlock } from "@/lib/cards/parts";
+import { scope } from "./i18n";
+
+const t = scope("cards.linkCard");
 
 /** The image size. */
 export const LINK_CARD_SIZE = { width: 1000, height: 208 } as const;
@@ -22,17 +25,17 @@ export const LinkCard = ({ card }: { card: LinkCardData }) => (
   <Frame {...LINK_CARD_SIZE}>
     {card.account ? (
       <TitleBlock
-        label="Linked"
+        label={t("linked")}
         title={card.account.username}
-        subtitle="Commands use this account when you leave the player empty."
+        subtitle={t("commandsUseThisAccount")}
         height={138}
         side={<Avatar osuId={card.account.osuId} size={96} />}
       />
     ) : (
       <TitleBlock
-        label="Not linked"
-        title="Link your osu! account"
-        subtitle="Sign in with osu! on haruhime.moe, then link Discord there."
+        label={t("notLinked")}
+        title={t("linkYourOsuAccount")}
+        subtitle={t("signInWithOsu")}
         height={138}
       />
     )}

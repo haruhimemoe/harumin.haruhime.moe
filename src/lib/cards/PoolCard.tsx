@@ -6,12 +6,15 @@
  *       adds the player's grade, accuracy and pp, or "not played".
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Fri Oct 9, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import { MAX_POOL_SLOTS, type PoolCard as PoolCardData } from "@haruhimemoe/harumin-config";
 import { Empty, FootLine, Frame, GradeLetter, oneLine, Stars, TitleBlock } from "@/lib/cards/parts";
 import { duration, INK, int, listHeight, percent, pp, stars } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.poolCard");
 
 const HEADER_HEIGHT = 138;
 const ROW_HEIGHT = 42;
@@ -36,11 +39,11 @@ export const poolCardSize = (rows: number) => ({
 const LABELS: Readonly<Record<PoolCardData["source"], string>> = {
   pack: "packs.haruhime.moe",
   pool: "pools.haruhime.moe",
-  check: "Content rules",
-  parsed: "Pasted pool",
+  check: t("contentRules"),
+  parsed: t("pastedPool"),
   practice: "Practice",
-  fromtop: "Draft from top plays",
-  me: "Your scores",
+  fromtop: t("draftFromTopPlays"),
+  me: t("yourScores"),
 };
 
 /** How each verdict reads, and whether it's the rose (not allowed) or muted. */
@@ -223,7 +226,7 @@ export const PoolCard = ({ card }: { card: PoolCardData }) => {
           );
         })
       ) : (
-        <Empty text="No maps." height={ROW_HEIGHT} />
+        <Empty text={t("noMaps")} height={ROW_HEIGHT} />
       )}
       <FootLine
         left={

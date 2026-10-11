@@ -7,7 +7,7 @@
  *       favorite). With `cover: "hole"` the cover box and the paper are left transparent for the bot's gif.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import {
@@ -37,6 +37,9 @@ import {
   pp,
   RULESET_LABELS,
 } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.profileCard");
 
 /** The image size. */
 export const PROFILE_CARD_SIZE = {
@@ -187,11 +190,11 @@ export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
         }}
       >
         <Stat label="pp" value={int(Math.round(player.pp))} big color={accent} />
-        <Stat label="Accuracy" value={percent(card.accuracy)} big />
-        <Stat label="Level" value={String(Math.floor(card.level))} big />
-        <Stat label="Plays" value={int(card.playCount)} big />
-        <Stat label="Play time" value={hours(card.playTime)} big />
-        <Stat label="Max combo" value={`${int(card.maxCombo)}x`} big />
+        <Stat label={t("accuracy")} value={percent(card.accuracy)} big />
+        <Stat label={t("level")} value={String(Math.floor(card.level))} big />
+        <Stat label={t("plays")} value={int(card.playCount)} big />
+        <Stat label={t("playTime")} value={hours(card.playTime)} big />
+        <Stat label={t("maxCombo")} value={`${int(card.maxCombo)}x`} big />
       </div>
 
       {favorite ? (
@@ -206,7 +209,7 @@ export const ProfileCard = ({ card }: { card: ProfileCardData }) => {
           }}
         >
           {[
-            `Favorite: ${favorite.title}`,
+            t("favoriteTitle", { title: favorite.title }),
             favorite.pp !== null ? pp(favorite.pp) : null,
             modsText(favorite.mods),
           ]

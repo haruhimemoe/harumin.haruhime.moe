@@ -1,22 +1,25 @@
 /**
  * @file src/components/layout/Header.tsx
  * @desc The header: ui's SiteHeader with the wordmark, the nav, the palette
- *       button and the account menu.
+ *       button and the account menu, in the request's language.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import { CommandPaletteButton, SiteHeader } from "@haruhimemoe/ui";
 import Link from "next/link";
-import { ACCOUNT_MENU_ITEMS, NAV_LINKS, SITE } from "@/constants/site";
+import { getTranslations } from "next-intl/server";
+import { accountMenuItems, navLinks, SITE } from "@/constants/site";
 import { AccountMenu } from "@/lib/account";
 
 /**
  * @function Header
- * @returns {JSX.Element} ui's SiteHeader with harumin's wordmark, nav and actions
+ * @returns {Promise<JSX.Element>} ui's SiteHeader with harumin's wordmark, nav and actions
  */
-export function Header() {
+export async function Header() {
+  const t = await getTranslations("harumin-site");
+  const ui = await getTranslations("ui");
   return (
     <SiteHeader
       brand={
@@ -27,11 +30,16 @@ export function Header() {
           </span>
         </Link>
       }
-      links={NAV_LINKS}
+      links={navLinks(t)}
+      navLabel={ui("shell.mainNav")}
       actions={
         <>
-          <CommandPaletteButton />
-          <AccountMenu items={ACCOUNT_MENU_ITEMS} />
+          <CommandPaletteButton label={ui("palette.openLabel")} />
+          <AccountMenu
+            items={accountMenuItems(t)}
+            signInLabel={ui("account.signIn")}
+            signOutLabel={ui("account.signOut")}
+          />
         </>
       }
     />

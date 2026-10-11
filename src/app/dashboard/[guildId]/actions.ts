@@ -4,12 +4,13 @@
  *       bot and database. Next checks the action's origin.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Tue Oct 6, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { getTranslations } from "next-intl/server";
 import { discordIdOf, getCurrentUser } from "@/lib/auth";
 import { getBot } from "@/lib/bot";
 import { type SaveResult, saveGuildForm } from "@/lib/dashboard";
@@ -21,7 +22,7 @@ import { saveSettings } from "@/lib/settings";
  * @param guildId {string} bound from the page
  * @param _previous {SaveResult | null} the last answer (useActionState)
  * @param form {FormData} the form
- * @returns {Promise<SaveResult>} what to show
+ * @returns {Promise<SaveResult>} what to show, in the visitor's language
  */
 export async function saveGuildSettings(
   guildId: string,
@@ -39,5 +40,6 @@ export async function saveGuildSettings(
     revalidateBot: (id) => bot.revalidate(id),
   });
   if (result.ok) revalidatePath(`/dashboard/${guildId}`);
-  return result;
+  const t = await getTranslations("harumin-site.settings.result");
+  return { ok: result.ok, message: t(result.code) };
 }

@@ -5,12 +5,15 @@
  *       muted.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import type { CardPlayer, CompareCard as CompareCardData } from "@haruhimemoe/harumin-config";
 import { Avatar, Flag, Frame, oneLine, Signature } from "@/lib/cards/parts";
 import { alpha, hours, INK, int, percent, pp, RULESET_LABELS } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.compareCard");
 
 /** The image size. */
 export const COMPARE_CARD_SIZE = { width: 1000, height: 560 } as const;
@@ -94,7 +97,7 @@ export const CompareCard = ({ card }: { card: CompareCardData }) => {
   const { a, b } = card;
   const rows: Row[] = [
     {
-      label: "Global rank",
+      label: t("globalRank"),
       a: a.player.globalRank,
       b: b.player.globalRank,
       show: (n) => `#${int(n)}`,
@@ -102,10 +105,10 @@ export const CompareCard = ({ card }: { card: CompareCardData }) => {
     },
     { label: "pp", a: a.player.pp, b: b.player.pp, show: pp },
     { label: "Accuracy", a: a.accuracy, b: b.accuracy, show: percent },
-    { label: "Top play", a: a.topPp, b: b.topPp, show: pp },
-    { label: "Play count", a: a.playCount, b: b.playCount, show: int },
-    { label: "Play time", a: a.playTime, b: b.playTime, show: hours },
-    { label: "Max combo", a: a.maxCombo, b: b.maxCombo, show: (n) => `${int(n)}x` },
+    { label: t("topPlay"), a: a.topPp, b: b.topPp, show: pp },
+    { label: t("playCount"), a: a.playCount, b: b.playCount, show: int },
+    { label: t("playTime"), a: a.playTime, b: b.playTime, show: hours },
+    { label: t("maxCombo"), a: a.maxCombo, b: b.maxCombo, show: (n) => `${int(n)}x` },
     { label: "SS", a: a.ssCount, b: b.ssCount, show: int },
   ];
   const wins = (mine: number | null, theirs: number | null, lower = false) =>

@@ -1,11 +1,12 @@
 /**
  * @file src/app/layout.tsx
- * @desc Root layout: Nunito font variable, site metadata, the light page, the library PageShell
- *       frame around the harumin header and footer, and the command palette (mounted once so its
- *       Ctrl K / Cmd K hotkey works from any page).
+ * @desc Root layout: Nunito font variable, site metadata, the light page in the request's
+ *       language (next-intl, prefix-less), the library PageShell frame around the harumin
+ *       header and footer, and the command palette (mounted once so its Ctrl K / Cmd K hotkey
+ *       works from any page).
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import { pwaMetadata, pwaViewport, ServiceWorkerRegister } from "@haruhimemoe/next-kit/pwa";
@@ -13,6 +14,8 @@ import { siteMetadata } from "@haruhimemoe/next-kit/seo";
 import { PageShell } from "@haruhimemoe/ui";
 import type { Metadata, Viewport } from "next";
 import { Nunito } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { AppPalette } from "@/components/layout/AppPalette";
 import { Footer } from "@/components/layout/Footer";
@@ -32,16 +35,20 @@ export const viewport: Viewport = pwaViewport(PWA);
 /**
  * @function RootLayout
  * @param props {{ children: ReactNode }} the page
- * @returns {JSX.Element} the html frame: header, the page and the footer
+ * @returns {Promise<JSX.Element>} the html frame: header, the page and the footer
  */
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const locale = await getLocale();
+  const ui = await getTranslations("ui");
   return (
-    <html lang="en" className={nunito.variable}>
+    <html lang={locale} className={nunito.variable}>
       <body className="bg-b5 font-sans text-c2 antialiased">
-        <AppPalette />
-        <PageShell header={<Header />} footer={<Footer />}>
-          {children}
-        </PageShell>
+        <NextIntlClientProvider>
+          <AppPalette />
+          <PageShell header={<Header />} footer={<Footer />} skipLabel={ui("shell.skip")}>
+            {children}
+          </PageShell>
+        </NextIntlClientProvider>
         <ServiceWorkerRegister />
       </body>
     </html>

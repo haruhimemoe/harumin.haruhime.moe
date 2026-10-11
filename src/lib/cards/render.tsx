@@ -6,7 +6,7 @@
  *       the route never calls the osu! API and keeps nothing.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import "server-only";
@@ -50,6 +50,7 @@ import { ServerCard, serverCardSize } from "@/lib/cards/ServerCard";
 import { SIMULATE_CARD_SIZE, SimulateCard } from "@/lib/cards/SimulateCard";
 import { TracksCard, tracksCardSize } from "@/lib/cards/TracksCard";
 import { cardFonts } from "@/lib/cards/theme";
+import { withCardLocale } from "./i18n";
 
 type Drawn = { element: ReactElement; size: { width: number; height: number } };
 
@@ -149,10 +150,14 @@ export const renderCard = async (request: Request, name: CardKindName): Promise<
   const card = CARD_KINDS[name] as CardKind<unknown>;
   const body = await parseJsonBody(request, card.schema);
   if (!body.ok) return body.response;
-  const { element, size } = card.draw(body.data);
-  return new ImageResponse(element, {
-    ...size,
-    fonts: await cardFonts(),
-    headers: { "Cache-Control": "no-store" },
+  const fonts = await cardFonts();
+  // The words follow harumin's Accept-Language; ImageResponse starts drawing as it's made.
+  return withCardLocale(request.headers.get("accept-language"), () => {
+    const { element, size } = card.draw(body.data);
+    return new ImageResponse(element, {
+      ...size,
+      fonts,
+      headers: { "Cache-Control": "no-store" },
+    });
   });
 };
