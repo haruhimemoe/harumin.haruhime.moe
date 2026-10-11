@@ -9,6 +9,7 @@
 
 import { CARD_ACCENTS } from "@haruhimemoe/harumin-config";
 import { beforeAll, describe, expect, it } from "vitest";
+import { noticeCardSize, noticeLines } from "@/lib/cards/NoticeCard";
 import { isCardKind, renderCard } from "@/lib/cards/render";
 import { accentColor, ago, clip, INK } from "@/lib/cards/theme";
 
@@ -76,6 +77,7 @@ describe("card routes", () => {
         "info",
         "link",
         "invite",
+        "notice",
       ].every(isCardKind),
     ).toBe(true);
     expect(isCardKind("toString")).toBe(false);
@@ -93,6 +95,19 @@ describe("card routes", () => {
       "profile",
     );
     expect(response.status).toBe(400);
+  });
+});
+
+describe("notice size", () => {
+  it("grows a line per wrap", () => {
+    const short = { tone: "ok" as const, parts: [{ text: "Done.", style: "plain" as const }] };
+    expect(noticeLines(short)).toBe(1);
+    const long = {
+      tone: "error" as const,
+      parts: [{ text: "word ".repeat(40).trim(), style: "plain" as const }],
+    };
+    expect(noticeLines(long)).toBe(4);
+    expect(noticeCardSize(long).height).toBeGreaterThan(noticeCardSize(short).height);
   });
 });
 

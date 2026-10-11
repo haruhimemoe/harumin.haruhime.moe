@@ -19,6 +19,7 @@ import {
   linkCardSchema,
   mapCardSchema,
   matchCostCardSchema,
+  noticeCardSchema,
   poolCardSchema,
   profileCardSchema,
   scoreCardSchema,
@@ -40,6 +41,7 @@ import { LeaderboardCard, leaderboardCardSize } from "@/lib/cards/LeaderboardCar
 import { LINK_CARD_SIZE, LinkCard } from "@/lib/cards/LinkCard";
 import { MAP_CARD_SIZE, MapCard } from "@/lib/cards/MapCard";
 import { MatchCostCard, matchCostCardSize } from "@/lib/cards/MatchCostCard";
+import { NoticeCard, noticeCardSize } from "@/lib/cards/NoticeCard";
 import { PoolCard, poolCardSize } from "@/lib/cards/PoolCard";
 import { PROFILE_CARD_SIZE, ProfileCard } from "@/lib/cards/ProfileCard";
 import { SCORE_CARD_SIZE, ScoreCard } from "@/lib/cards/ScoreCard";
@@ -113,6 +115,10 @@ export const CARD_KINDS = {
   invite: kind(inviteCardSchema, (card) => ({
     element: <InviteCard card={card} />,
     size: INVITE_CARD_SIZE,
+  })),
+  notice: kind(noticeCardSchema, (card) => ({
+    element: <NoticeCard card={card} />,
+    size: noticeCardSize(card),
   })),
 } as const;
 
