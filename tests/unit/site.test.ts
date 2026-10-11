@@ -31,7 +31,7 @@ const form = (entries: Record<string, string>) => {
 describe("dashboard rules", () => {
   it("reads the form", () => {
     expect(readSettingsForm(form({ map: "on", defaultMode: "mania" }))).toEqual({
-      autoEmbeds: { map: true, match: false, pack: false, pool: false, bb: false },
+      autoEmbeds: { map: true, match: false, pack: false, pool: false, bb: false, replay: false },
       defaultMode: "mania",
     });
     expect(readSettingsForm(form({ defaultMode: "auto" }))?.defaultMode).toBeNull();
