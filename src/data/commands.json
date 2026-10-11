@@ -398,15 +398,21 @@
     },
     {
       "name": "render",
-      "description": "Render a replay (.osr) to video with o!rdr",
+      "description": "Render a replay to video with o!rdr, from a score link or an .osr",
       "category": "osu",
       "categoryName": "osu!",
       "options": [
         {
+          "name": "score",
+          "description": "An osu! score link (osu.ppy.sh/scores/...)",
+          "type": "text",
+          "required": false
+        },
+        {
           "name": "replay",
-          "description": "The .osr file",
+          "description": "Or the .osr file",
           "type": "value",
-          "required": true
+          "required": false
         },
         {
           "name": "skin",
