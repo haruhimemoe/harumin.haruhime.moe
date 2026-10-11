@@ -4,12 +4,15 @@
  *       linked players (place, avatar, flag, name, the stat), and the page along the bottom.
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import { MAX_SERVER_ROWS, type ServerCard as ServerCardData } from "@haruhimemoe/harumin-config";
 import { Avatar, Empty, Flag, FootLine, Frame, oneLine, TitleBlock } from "@/lib/cards/parts";
 import { guildIconPng, INK, listHeight, RULESET_LABELS } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.serverCard");
 
 const HEADER_HEIGHT = 138;
 const ROW_HEIGHT = 54;
@@ -110,7 +113,7 @@ export const ServerCard = ({ card }: { card: ServerCardData }) => (
         </div>
       ))
     ) : (
-      <Empty text="Nobody here has linked an osu! account yet." height={ROW_HEIGHT} />
+      <Empty text={t("nobodyHereHasLinked")} height={ROW_HEIGHT} />
     )}
     <FootLine left={card.pages > 1 ? `page ${card.page} of ${card.pages}` : null} />
   </Frame>

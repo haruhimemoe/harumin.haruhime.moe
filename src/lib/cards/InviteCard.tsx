@@ -4,12 +4,15 @@
  *       The invite itself stays a button under the image.
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import type { InviteCard as InviteCardData } from "@haruhimemoe/harumin-config";
 import { FootLine, Frame, Stat, TitleBlock } from "@/lib/cards/parts";
 import { int } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.inviteCard");
 
 /** The image size. */
 export const INVITE_CARD_SIZE = { width: 1000, height: 208 } as const;
@@ -22,12 +25,12 @@ export const INVITE_CARD_SIZE = { width: 1000, height: 208 } as const;
 export const InviteCard = ({ card }: { card: InviteCardData }) => (
   <Frame {...INVITE_CARD_SIZE}>
     <TitleBlock
-      label="Add to a server"
+      label={t("addToAServer")}
       title="harumin"
-      subtitle="Profiles, scores, maps, match costs and pools, in your osu! server."
+      subtitle={t("profilesScoresMapsMatch")}
       height={138}
-      side={<Stat label="Servers" value={int(card.guilds)} big />}
+      side={<Stat label={t("servers")} value={int(card.guilds)} big />}
     />
-    <FootLine left="Settings live on the dashboard" />
+    <FootLine left={t("settingsLiveOnThe")} />
   </Frame>
 );

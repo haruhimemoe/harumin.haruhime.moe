@@ -5,7 +5,7 @@
  *       left off along the bottom.
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import {
@@ -14,6 +14,9 @@ import {
 } from "@haruhimemoe/harumin-config";
 import { Empty, Flag, FootLine, Frame, oneLine, TitleBlock } from "@/lib/cards/parts";
 import { INK, listHeight } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.matchCostCard");
 
 const HEADER_HEIGHT = 138;
 const ROW_HEIGHT = 46;
@@ -54,7 +57,7 @@ const Score = ({ red, blue }: { red: number; blue: number }) => (
 export const MatchCostCard = ({ card }: { card: MatchCostCardData }) => (
   <Frame {...matchCostCardSize(card.rows.length)}>
     <TitleBlock
-      label="Match costs"
+      label={t("matchCosts")}
       title={card.name}
       subtitle={[
         `${card.games} game${card.games === 1 ? "" : "s"}`,
@@ -131,7 +134,7 @@ export const MatchCostCard = ({ card }: { card: MatchCostCardData }) => (
         </div>
       ))
     ) : (
-      <Empty text="No completed games yet." height={ROW_HEIGHT} />
+      <Empty text={t("noCompletedGamesYet")} height={ROW_HEIGHT} />
     )}
     <FootLine left={card.more ? `and ${card.more} more` : null} />
   </Frame>

@@ -54,6 +54,9 @@ const Options = ({ options, required }: { options: readonly CommandOption[]; req
  */
 export default async function CommandsPage() {
   const t = await getTranslations("harumin-site.commands");
+  const tb = await getTranslations("harumin-bot.commands");
+  // The bot's own words for its commands, from the same catalog it registers with Discord.
+  const said = (path: string, english: string) => (tb.has(path) ? tb(path) : english);
   const groups = groupCommands(COMMANDS);
   return (
     <div className="flex flex-col">
@@ -81,7 +84,9 @@ export default async function CommandsPage() {
             {group.commands.map((command) => (
               <li key={command.name} id={command.name} className="panel scroll-mt-24 p-5">
                 <h3 className="font-bold font-mono text-c1 text-lg">/{command.name}</h3>
-                <p className="mt-1 text-c2">{command.description}</p>
+                <p className="mt-1 text-c2">
+                  {said(`${command.name}.description`, command.description)}
+                </p>
                 {command.subcommands.length > 0 ? (
                   <ul className="mt-4 space-y-4">
                     {command.subcommands.map((sub) => (
@@ -89,7 +94,9 @@ export default async function CommandsPage() {
                         <p className="font-mono text-c1 text-sm">
                           {usageLine(`${command.name} ${sub.name}`, sub.options)}
                         </p>
-                        <p className="text-c3 text-sm">{sub.description}</p>
+                        <p className="text-c3 text-sm">
+                          {said(`${command.name}.options.${sub.name}.description`, sub.description)}
+                        </p>
                         <Options options={sub.options} required={t("required")} />
                       </li>
                     ))}

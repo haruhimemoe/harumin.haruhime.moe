@@ -22,7 +22,7 @@
   "dependencies": {
     "@haruhimemoe/brand": "0.10.0",
     "@haruhimemoe/harumin-config": "0.12.0",
-    "@haruhimemoe/messages": "/private/tmp/claude-501/-Users-david-Documents-obsidian-vault/48be55d9-fccc-4299-b087-5331dd6e4515/scratchpad/messages-1791721883732445000.tgz",
+    "@haruhimemoe/messages": "/private/tmp/claude-501/-Users-david-Documents-obsidian-vault/48be55d9-fccc-4299-b087-5331dd6e4515/scratchpad/messages-1791723885503533000.tgz",
     "@haruhimemoe/next-kit": "0.19.1",
     "@haruhimemoe/osu": "0.7.0",
     "@haruhimemoe/ui": "0.27.1",
@@ -37,6 +37,7 @@
     "react-dom": "19.3.0",
     "remark-gfm": "4.0.1",
     "server-only": "0.0.1",
+    "use-intl": "4.14.9",
     "zod": "4.6.5"
   },
   "devDependencies": {

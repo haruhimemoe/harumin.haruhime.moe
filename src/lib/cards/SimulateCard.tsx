@@ -4,13 +4,16 @@
  *       the accuracy, combo and misses it was worked out for.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import type { SimulateCard as SimulateCardData } from "@haruhimemoe/harumin-config";
 import { MapHeader } from "@/lib/cards/MapHeader";
 import { Frame, Mods, Signature, Stat } from "@/lib/cards/parts";
 import { INK, int, percent, pp, RULESET_LABELS } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.simulateCard");
 
 /** The image size. */
 export const SIMULATE_CARD_SIZE = { width: 1000, height: 420 } as const;
@@ -25,7 +28,7 @@ export const SimulateCard = ({ card }: { card: SimulateCardData }) => (
     <MapHeader
       map={card.map}
       height={190}
-      pills={["If you played it like this", RULESET_LABELS[card.ruleset]]}
+      pills={[t("ifYouPlayedIt"), RULESET_LABELS[card.ruleset]]}
     />
     <div style={{ display: "flex", alignItems: "center", gap: 44, padding: "24px 32px 0" }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -36,8 +39,8 @@ export const SimulateCard = ({ card }: { card: SimulateCardData }) => (
         </div>
         <Mods mods={card.mods} size={18} />
       </div>
-      <Stat label="Accuracy" value={percent(card.accuracy)} />
-      <Stat label="Combo" value={`${int(card.combo)}x / ${int(card.mapMaxCombo)}x`} />
+      <Stat label={t("accuracy")} value={percent(card.accuracy)} />
+      <Stat label={t("combo")} value={`${int(card.combo)}x / ${int(card.mapMaxCombo)}x`} />
       <Stat label={card.misses === 1 ? "Miss" : "Misses"} value={int(card.misses)} />
     </div>
     <div style={{ display: "flex", justifyContent: "flex-end", margin: "auto 32px 18px" }}>

@@ -4,7 +4,7 @@
  *       with avatar, name, ruleset and the channel their top plays go to.
  * @author David @dvhsh (https://dvh.sh)
  * @created Thu Oct 8, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import {
@@ -13,6 +13,9 @@ import {
 } from "@haruhimemoe/harumin-config";
 import { Avatar, Empty, FootLine, Frame, oneLine, TitleBlock } from "@/lib/cards/parts";
 import { INK, listHeight, RULESET_LABELS } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.tracksCard");
 
 const HEADER_HEIGHT = 112;
 const ROW_HEIGHT = 50;
@@ -42,8 +45,8 @@ export const tracksCardSize = (rows: number) => ({
 export const TracksCard = ({ card }: { card: TracksCardData }) => (
   <Frame {...tracksCardSize(card.rows.length)}>
     <TitleBlock
-      label="Top play tracking"
-      title="Tracked players"
+      label={t("topPlayTracking")}
+      title={t("trackedPlayers")}
       height={HEADER_HEIGHT}
       side={
         <div style={{ display: "flex", alignItems: "baseline", gap: 6, fontWeight: 800 }}>
@@ -97,7 +100,7 @@ export const TracksCard = ({ card }: { card: TracksCardData }) => (
         </div>
       ))
     ) : (
-      <Empty text="Nobody yet. /track add posts a player's new top plays." height={ROW_HEIGHT} />
+      <Empty text={t("nobodyYetTrackAdd")} height={ROW_HEIGHT} />
     )}
     <FootLine />
   </Frame>

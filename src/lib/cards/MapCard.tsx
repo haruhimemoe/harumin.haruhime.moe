@@ -4,13 +4,16 @@
  *       BPM and max combo with the mods' speed, and pp at each accuracy, 100% in rose.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import type { MapCard as MapCardData } from "@haruhimemoe/harumin-config";
 import { MapHeader } from "@/lib/cards/MapHeader";
 import { Frame, Mods, Signature, Stat } from "@/lib/cards/parts";
 import { duration, INK, int, pp, RULESET_LABELS, stat } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.mapCard");
 
 /** The image size. */
 export const MAP_CARD_SIZE = { width: 1000, height: 470 } as const;
@@ -42,10 +45,10 @@ export const MapCard = ({ card }: { card: MapCardData }) => {
             <Stat key={label} label={label} value={stat(value)} />
           ))}
         <div style={{ display: "flex", width: 2, height: 56, background: INK.rule }} />
-        <Stat label="Length" value={duration(card.lengthSeconds)} />
-        <Stat label="BPM" value={stat(card.bpm)} />
+        <Stat label={t("length")} value={duration(card.lengthSeconds)} />
+        <Stat label={t("bpm")} value={stat(card.bpm)} />
         {card.maxCombo !== null ? (
-          <Stat label="Max combo" value={`${int(card.maxCombo)}x`} />
+          <Stat label={t("maxCombo")} value={`${int(card.maxCombo)}x`} />
         ) : null}
       </div>
       {card.pps.length ? (

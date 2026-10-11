@@ -4,7 +4,7 @@
  *       grade, mods, accuracy, combo, pp), and the filter and page along the bottom.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import {
@@ -14,6 +14,9 @@ import {
 import { MapHeader } from "@/lib/cards/MapHeader";
 import { Flag, Frame, GradeLetter, Mods, oneLine, Signature } from "@/lib/cards/parts";
 import { INK, int, percent, pp } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.leaderboardCard");
 
 const HEADER_HEIGHT = 150;
 const ROW_HEIGHT = 54;
@@ -41,7 +44,7 @@ export const leaderboardCardSize = (rows: number) => ({
  */
 export const LeaderboardCard = ({ card }: { card: LeaderboardCardData }) => (
   <Frame {...leaderboardCardSize(card.rows.length)}>
-    <MapHeader map={card.map} height={HEADER_HEIGHT} pills={["Global leaderboard"]} />
+    <MapHeader map={card.map} height={HEADER_HEIGHT} pills={[t("globalLeaderboard")]} />
     {card.rows.length ? (
       card.rows.map((row) => (
         <div
@@ -136,7 +139,7 @@ export const LeaderboardCard = ({ card }: { card: LeaderboardCardData }) => (
           color: INK.muted,
         }}
       >
-        No scores.
+        {t("noScores")}
       </div>
     )}
     <div
@@ -150,7 +153,7 @@ export const LeaderboardCard = ({ card }: { card: LeaderboardCardData }) => (
         fontWeight: 800,
       }}
     >
-      <div style={{ display: "flex" }}>{card.filter ?? "Global top 100"}</div>
+      <div style={{ display: "flex" }}>{card.filter ?? t("globalTop100")}</div>
       <Signature text={card.pages > 1 ? `page ${card.page} of ${card.pages}` : undefined} />
     </div>
   </Frame>

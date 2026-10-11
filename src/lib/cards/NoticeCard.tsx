@@ -5,7 +5,7 @@
  *       text: words are wrapped at a guessed width to count the lines.
  * @author David @dvhsh (https://dvh.sh)
  * @created Sat Oct 10, 2026
- * @modified Sat Oct 10, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import type { NoticeCard as NoticeCardData } from "@haruhimemoe/harumin-config";

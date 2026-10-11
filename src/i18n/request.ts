@@ -16,7 +16,7 @@ export const LOCALE_CONFIG = { locales: LOCALES, defaultLocale: "en" };
 
 export default createRequestConfig({
   config: LOCALE_CONFIG,
-  packages: [messagesLoader("ui"), messagesLoader("common")],
+  packages: [messagesLoader("ui"), messagesLoader("common"), messagesLoader("harumin-bot")],
   app: messagesLoader("harumin-site"),
   request: readRequestLocale,
 });

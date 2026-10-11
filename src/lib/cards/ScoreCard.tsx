@@ -6,7 +6,7 @@
  *       "best of 23"), and who played it and when along the bottom.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Thu Oct 8, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import type { CardPlayer, ScoreCard as ScoreCardData } from "@haruhimemoe/harumin-config";
@@ -22,6 +22,9 @@ import {
   Stat,
 } from "@/lib/cards/parts";
 import { ago, INK, int, percent, pp, RULESET_LABELS } from "@/lib/cards/theme";
+import { scope } from "./i18n";
+
+const t = scope("cards.scoreCard");
 
 /** The image size. */
 export const SCORE_CARD_SIZE = { width: 1000, height: 510 } as const;
@@ -100,12 +103,12 @@ export const ScoreCard = ({ card, now }: { card: ScoreCardData; now?: number }) 
             </div>
           </div>
           <div style={{ display: "flex", gap: 40 }}>
-            <Stat label="Accuracy" value={percent(score.accuracy)} />
+            <Stat label={t("accuracy")} value={percent(score.accuracy)} />
             <Stat
-              label={fullCombo ? "Combo · FC" : "Combo"}
+              label={fullCombo ? t("comboFc") : "Combo"}
               value={`${int(score.combo)}x${score.mapMaxCombo !== null ? ` / ${int(score.mapMaxCombo)}x` : ""}`}
             />
-            <Stat label="Score" value={int(score.totalScore)} />
+            <Stat label={t("score")} value={int(score.totalScore)} />
           </div>
           <div
             style={{
