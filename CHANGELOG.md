@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - CodeQL and a gitleaks history scan run in CI, and Dependabot keeps dependencies and pinned actions current.
+- The site's text comes from `@haruhimemoe/messages` through next-intl, with no locale in the URL: the shared `NEXT_LOCALE` cookie, then the browser's languages. English only for now; pages stay static until a second language lands. `bun run check:keys` checks every key against the catalogs.
 
 ### Changed
 

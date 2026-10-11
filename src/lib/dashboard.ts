@@ -5,7 +5,7 @@
  *       has Manage Server in that guild. The guild id from the URL is never trusted alone.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Tue Oct 6, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import {
@@ -19,6 +19,17 @@ import {
 } from "@haruhimemoe/harumin-config";
 
 /** What a save answers, for the form. */
+/** Why a save did or didn't happen; the page words it in the visitor's language. */
+export type SaveCode =
+  | "not-a-server"
+  | "no-discord"
+  | "offline"
+  | "forbidden"
+  | "invalid"
+  | "saved";
+/** What saveGuildForm decided. */
+export type SaveOutcome = { ok: boolean; code: SaveCode };
+/** What the form shows: the outcome and its words. */
 export type SaveResult = { ok: boolean; message: string };
 
 /** What saving needs, injected. */
@@ -62,42 +73,33 @@ export const findManaged = (
  * @param guildId {string} from the URL
  * @param form {FormData} the submitted form
  * @param deps {SaveDeps} who's asking and what the bot says
- * @returns {Promise<SaveResult>} saved, or why not
+ * @returns {Promise<SaveOutcome>} saved, or why not, as a code
  */
 export const saveGuildForm = async (
   guildId: string,
   form: FormData,
   deps: SaveDeps,
-): Promise<SaveResult> => {
-  if (!snowflakeSchema.safeParse(guildId).success)
-    return { ok: false, message: "That isn't a server." };
+): Promise<SaveOutcome> => {
+  if (!snowflakeSchema.safeParse(guildId).success) return { ok: false, code: "not-a-server" };
   const discordId = await deps.discordId();
-  if (!discordId) return { ok: false, message: "Sign in and link Discord on haruhime.moe first." };
+  if (!discordId) return { ok: false, code: "no-discord" };
   let guilds: ManageableGuild[];
   try {
     guilds = await deps.manageableGuilds(discordId);
   } catch {
-    return {
-      ok: false,
-      message: "harumin isn't answering right now, so nothing was saved. Try again in a minute.",
-    };
+    return { ok: false, code: "offline" };
   }
-  if (!findManaged(guilds, guildId))
-    return {
-      ok: false,
-      message: "You need Manage Server in that server, and harumin has to be in it.",
-    };
+  if (!findManaged(guilds, guildId)) return { ok: false, code: "forbidden" };
   const patch = readSettingsForm(form);
-  if (!patch)
-    return { ok: false, message: "Those settings don't look right. Reload and try again." };
+  if (!patch) return { ok: false, code: "invalid" };
   await deps.save(guildId, patch, discordId);
   await deps.revalidateBot(guildId).catch(() => undefined);
-  return { ok: true, message: "Saved. harumin uses the new settings within a minute." };
+  return { ok: true, code: "saved" };
 };
 
-/** The default-mode choices, "auto" first. */
+/** The default-mode choices, "auto" first; "auto" is worded by the form (`playersOwn`). */
 export const MODE_CHOICES: readonly { value: string; label: string }[] = [
-  { value: "auto", label: "Player's own" },
+  { value: "auto", label: "auto" },
   ...RULESETS.map((value) => ({
     value,
     label: value === "fruits" ? "catch" : value === "osu" ? "osu!" : value,

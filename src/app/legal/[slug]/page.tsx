@@ -4,14 +4,16 @@
  *       body, a "Copy as Markdown" button for its .md mirror. Static params from the registry; anything else 404s.
  * @author David @dvhsh (https://dvh.sh)
  * @created Wed Oct 7, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import { contentParams, contentPath, findEntry, markdownPath } from "@haruhimemoe/next-kit/docs";
+import { uiLabels } from "@haruhimemoe/next-kit/i18n";
 import { notFoundMetadata, pageMetadata } from "@haruhimemoe/next-kit/seo";
 import { ContentPage } from "@haruhimemoe/ui";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getLocale, getTranslations } from "next-intl/server";
 import { CONTENT } from "@/constants/content";
 import { SEO_SITE } from "@/constants/seo";
 import { LOADERS } from "@/content/load";
@@ -57,12 +59,17 @@ export default async function LegalPage({ params }: Props) {
   const load = LOADERS.legal?.[slug];
   if (!entry || !load) notFound();
   const { default: Body } = await load();
+  const ui = uiLabels(await getTranslations("ui"));
+  const locale = await getLocale();
   return (
     <ContentPage
       title={entry.title}
       description={entry.description}
       lastUpdated={entry.lastUpdated}
       markdownHref={markdownPath("legal", slug)}
+      lastUpdatedLabel={ui.contentNav.lastUpdated}
+      labels={ui.contentPage}
+      locale={locale}
     >
       <Body />
     </ContentPage>

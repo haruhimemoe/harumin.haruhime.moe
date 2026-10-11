@@ -1,10 +1,10 @@
 /**
  * @file src/constants/site.ts
- * @desc The site's name, URL, description, contact and links, the bot's invite link, the header
- *       nav and account menu, and the footer's columns.
+ * @desc The site's name, URL, description, contact and links, the bot's invite link, and the
+ *       header nav, account menu and footer columns built from a translator.
  * @author David @dvhsh (https://dvh.sh)
  * @created Tue Oct 6, 2026
- * @modified Wed Oct 7, 2026
+ * @modified Sun Oct 11, 2026
  */
 
 import { SHARED_MARKER_COOKIE } from "@haruhimemoe/next-kit/auth-react";
@@ -90,39 +90,56 @@ export const DEFAULT_AFTER_SIGN_IN = "/dashboard";
 /** The readable "signed in" marker the hub sets on .haruhime.moe. harumin only reads it. */
 export const SIGNED_IN_COOKIE = SHARED_MARKER_COOKIE;
 
-/** The header's links. */
-export const NAV_LINKS: readonly { href: string; label: string }[] = [
-  { href: "/commands", label: "Commands" },
-  { href: "/dashboard", label: "Dashboard" },
+/** A translator for this site's catalog (next-intl's t for "harumin-site" or "common"). */
+type T = (key: string) => string;
+
+/**
+ * @function navLinks
+ * @param t {T} the "harumin-site" translator
+ * @returns {{ href: string; label: string }[]} the header's links
+ */
+export const navLinks = (t: T): { href: string; label: string }[] => [
+  { href: "/commands", label: t("nav.commands") },
+  { href: "/dashboard", label: t("nav.dashboard") },
 ];
 
-/** The header account menu's links, above Sign out. */
-export const ACCOUNT_MENU_ITEMS: readonly { href: string; label: string }[] = [
-  { href: "/dashboard", label: "Your servers" },
-  { href: "/card", label: "Your card" },
-  { href: HUB_ACCOUNT_URL, label: "Link Discord" },
+/**
+ * @function accountMenuItems
+ * @param t {T} the "harumin-site" translator
+ * @returns {{ href: string; label: string }[]} the header account menu's links, above Sign out
+ */
+export const accountMenuItems = (t: T): { href: string; label: string }[] => [
+  { href: "/dashboard", label: t("nav.servers") },
+  { href: "/card", label: t("nav.card") },
+  { href: HUB_ACCOUNT_URL, label: t("nav.linkDiscord") },
 ];
 
-/** The footer's own link columns: harumin, About and Legal (ui's SiteFooter adds the tools). */
-export const FOOTER_COLUMNS: readonly SiteFooterColumn[] = [
+/**
+ * @function footerColumns
+ * @param t {T} the "harumin-site" translator
+ * @param common {T} the "common" translator
+ * @returns {SiteFooterColumn[]} the footer's own link columns: harumin, About and Legal (ui's
+ *          SiteFooter adds the tools). Legal page titles stay English, like the pages.
+ */
+export const footerColumns = (t: T, common: T): SiteFooterColumn[] => [
   {
     title: "harumin",
     items: [
-      { href: "/commands", label: "Commands" },
-      { href: "/dashboard", label: "Dashboard" },
-      { href: SITE.discordUrl, label: "Support" },
+      { href: "/commands", label: t("nav.commands") },
+      { href: "/dashboard", label: t("nav.dashboard") },
+      { href: SITE.discordUrl, label: common("footer.support") },
     ],
   },
   {
-    title: "About",
+    title: common("footer.about"),
     items: [
-      { href: SITE.repoUrl, label: "Source on GitHub" },
-      { href: "/brand", label: "Brand" },
+      { href: SITE.repoUrl, label: common("footer.source") },
+      { href: "/brand", label: common("footer.brand") },
       { href: `mailto:${SITE.contactEmail}`, label: SITE.contactEmail },
     ],
   },
   {
-    title: "Legal",
+    title: common("footer.legal"),
     items: CONTENT.entries.legal.map(({ slug, title }) => ({
       href: `/legal/${slug}`,
       label: title,

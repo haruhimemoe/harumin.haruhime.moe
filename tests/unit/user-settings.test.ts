@@ -67,10 +67,7 @@ describe("readCardForm", () => {
           favorite: "https://osu.ppy.sh/beatmapsets/39804",
         }),
       ),
-    ).toEqual({
-      ok: false,
-      message: "Use a difficulty link (one with #osu/ and an id), or the id.",
-    });
+    ).toEqual({ ok: false, code: "set-link" });
     expect(
       readCardForm(form({ accent: "rose", cover: "profile", favorite: "freedom dive" })).ok,
     ).toBe(false);
