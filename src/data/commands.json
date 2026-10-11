@@ -397,6 +397,27 @@
       "subcommands": []
     },
     {
+      "name": "render",
+      "description": "Render a replay (.osr) to video with o!rdr",
+      "category": "osu",
+      "categoryName": "osu!",
+      "options": [
+        {
+          "name": "replay",
+          "description": "The .osr file",
+          "type": "value",
+          "required": true
+        },
+        {
+          "name": "skin",
+          "description": "An o!rdr skin name (default: the osu! default skin)",
+          "type": "text",
+          "required": false
+        }
+      ],
+      "subcommands": []
+    },
+    {
       "name": "pack",
       "description": "A pack from packs.haruhime.moe",
       "category": "haruhime",
