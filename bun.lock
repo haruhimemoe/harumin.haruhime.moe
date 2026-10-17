@@ -6,7 +6,7 @@
       "name": "harumin.haruhime.moe",
       "dependencies": {
         "@haruhimemoe/brand": "0.10.0",
-        "@haruhimemoe/harumin-config": "0.12.0",
+        "@haruhimemoe/harumin-config": "0.14.0",
         "@haruhimemoe/messages": "0.1.0",
         "@haruhimemoe/next-kit": "0.19.1",
         "@haruhimemoe/osu": "0.7.0",
@@ -138,7 +138,7 @@
 
     "@haruhimemoe/brand": ["@haruhimemoe/brand@0.10.0", "", { "dependencies": { "@resvg/resvg-js": "2.6.2", "opentype.js": "2.0.0" }, "bin": { "haruhime-brand": "dist/cli.js" } }, "sha512-4ib+VbXqvL2bIN/2Gkr5qdINxSyz+EcHtcKkEYeX8iSrif/KivInHFjG3xIlBsgZknE6iRcpj6ke2PIZxHGwlQ=="],
 
-    "@haruhimemoe/harumin-config": ["@haruhimemoe/harumin-config@0.12.0", "", { "peerDependencies": { "zod": "^4.0.16" } }, "sha512-TSD7mr+4m+NHqNbjjPTWDw5Ije4xayoHGt+M/unlqKbnH9NktzLecJRxHGoq6Tz7bSyhbNg9HEl74/OVbzVPAQ=="],
+    "@haruhimemoe/harumin-config": ["@haruhimemoe/harumin-config@0.14.0", "", { "peerDependencies": { "zod": "^4.0.16" } }, "sha512-MSBnsWEzS8xi3xcW3+Dwaai6Zgf9VkZN9m3SFkg/06nseSX7ipwrXSisRBZBzg9LpNKkwFg6t2uF6UW4cbjRqw=="],
 
     "@haruhimemoe/messages": ["@haruhimemoe/messages@0.1.0", "", { "bin": { "messages-check-keys": "bin/check-keys.mjs" } }, "sha512-FOeJ7ILApIfPIw+fLA7Re1M8Pcd/2pull7mCSvi0042U2XZxGPK/3Uh/1rTYmb0chH2ZaSPsxHjVrhRVNLPgpA=="],
 
